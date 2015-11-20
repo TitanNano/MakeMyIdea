@@ -1,0 +1,22 @@
+{
+  "name": "make-my-idea",
+  "description": "put something here",
+  "main": "main.js",
+  "authors": [
+    "Jovan Gerodetti <jovan.gerodetti@titannano.de>"
+  ],
+  "license": "ISC",
+  "moduleType": [],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "systemjs": "*"
+  }
+}
