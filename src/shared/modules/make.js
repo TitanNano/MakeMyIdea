@@ -69,7 +69,7 @@ export var Make = function(object, prototype) {
 export var hasPrototype = function(object, prototype){
     var p = Object.getPrototypeOf(object);
 
-    while(p !== null){
+    while(p !== null && p !== undefined){
         if(typeof prototype == 'function')
             prototype = prototype.prototype;
 
