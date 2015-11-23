@@ -21,7 +21,7 @@ angular.module('tec-demo.directives').controller("EditorController", ['$scope', 
 		return {
 			text : chip
 		};
-	}
+	};
 
 	$scope.editor = {
 		title : '',

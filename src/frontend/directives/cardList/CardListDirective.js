@@ -7,5 +7,5 @@ angular.module('tec-demo.directives').directive('demoCardList', function(){
 		},
 		templateUrl:'./directives/cardList/Template.html',
 		controller: 'CardListController'
-	}
+	};
 })

@@ -2,38 +2,50 @@ var gulp 	 = require('gulp'),
 	babel = require('gulp-babel'),
 	del = require('del'),
 	sourcemaps = require('gulp-sourcemaps'),
-	es = require('event-stream');
+	es = require('event-stream'),
+	changed = require('gulp-changed');
 
 var dist = 'dist/';
+var temp = 'dist/temp/';
 
 gulp.task('clean', function() {
 	return del(['dist']);
 });
 
-gulp.task('copy', ['clean'], function(){
-	return gulp.src(['src/**/*.*', '!src/shared/**/*.js'])
-		.pipe(gulp.dest(dist));
+gulp.task('copyBuildStage', function(){
+	return es.merge(gulp.src(['src/**/*.*', '!src/shared/**/*.js'])
+						.pipe(changed(dist))
+						.pipe(gulp.dest(temp)),
 
+					gulp.src('src/shared/**/*.*')
+						.pipe(changed(dist + 'frontend/'))
+						.pipe(gulp.dest(temp + 'frontend/'))
+						.pipe(gulp.dest(temp + 'backend/'))
+				);
 });
 
-gulp.task('copy:shared', ['copy'], function(){
-	return gulp.src('src/shared/**/*.*')
-		.pipe(gulp.dest(dist + 'frontend/'))
-		.pipe(gulp.dest(dist + 'backend/'));
-})
-
-gulp.task('compile', ['copy', 'copy:shared'], function(){
-	return gulp.src([dist + '/**/*.js', '!**/node_modules/**', '!**/frontend/libs/**'])
+gulp.task('compile', ['copyBuildStage'], function(){
+	return gulp.src([temp + '/**/*.js', '!**/node_modules/**', '!**/frontend/libs/**'])
+		.pipe(changed(dist))
 		.pipe(sourcemaps.init())
 			.pipe(babel({
 				presets : ['es2015'],
 				comments : false
 			}))
 		.pipe(sourcemaps.write('.'))
+		.pipe(gulp.dest(temp));
+});
+
+gulp.task('copyToDist', ['copyBuildStage', 'compile'],  function(){
+	return gulp.src(temp + '**')
 		.pipe(gulp.dest(dist));
+});
+
+gulp.task('clean:temp', ['copyToDist'], function(){
+	return del(['dist/temp']);
 })
 
-gulp.task('copyDependecies', ['clean'], function(){
+gulp.task('copyDependecies', function(){
 	return es.merge(
 		gulp.src('node_modules/systemjs/dist/system.js')
 			.pipe(gulp.dest(dist + 'frontend/libs/')),
@@ -49,4 +61,9 @@ gulp.task('copyDependecies', ['clean'], function(){
 	);
 });
 
-gulp.task('default', ['copy', 'copy:shared', 'compile', 'copyDependecies']);
+gulp.task('watch', function(){
+	gulp.watch(['src/**/*.*', '!src/**/*.js'], ['copy']);
+	gulp.watch(['src/**/*.js'], ['copyToDist']);
+})
+
+gulp.task('default', ['compile', 'copyDependecies', 'copyToDist', 'clean:temp']);
