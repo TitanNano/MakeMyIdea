@@ -10,7 +10,7 @@ import { hasPrototype } from './make.js';
 import Controller from '../prototypes/controller.js';
 
 let app = Express();
-let server = null;
+var server = null;
 
 var controller = function(controller){
 	if (hasPrototype(controller, Controller)) {

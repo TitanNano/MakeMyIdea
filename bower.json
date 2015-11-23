@@ -17,6 +17,7 @@
     "tests"
   ],
   "dependencies": {
-    "systemjs": "*"
+    "angular-material": "~0.11.4",
+    "angular": "~1.4.8"
   }
 }

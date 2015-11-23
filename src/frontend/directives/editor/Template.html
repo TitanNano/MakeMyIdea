@@ -1,0 +1,18 @@
+<md-card>
+	<md-card-content>
+		<md-input-container>
+			<label for="title">Title</label>
+			<input name="title" type="text" ng-model="editor.title" class="md-title">
+		</md-input-container>
+		<md-input-container>
+			<label for="content">Content</label>
+			<textarea name="content" ng-model="editor.content"></textarea>
+		</md-input-container>
+		<md-chips ng-model="editor.tags" md-on-append="editor.onTransformChip($chip)">
+    		<md-chip-template>{{$chip.text}}</md-chip-template>
+		</md-chips>
+	</md-card-content>
+	<md-card-actions layout="row" layout-align="end center">
+		<md-button ng-click="editor.save()">Save</md-button>
+	</md-card-actions>
+</md-card>
