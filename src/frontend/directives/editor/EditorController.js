@@ -1,14 +1,26 @@
+import { Make } from 'modules/make.js';
+import Card from 'prototypes/Card.js';
+import Logger from 'prototypes/Logger.js';
+
 angular.module('tec-demo.directives').controller("EditorController", ['$scope', 'CardService', function($scope, CardService){
+
+	/**
+	 * @inner
+	 * @instance {Logger}
+	 */
+	var logger = Make(Logger)('EditorController');
 
 	/**
 	 * saves the current card into the CardService.
 	 */
 	var saveEditor = function(){
-		CardService.saveCard({
+		var card = Make({
 			title : this.title,
 			content : this.content,
 			tags : this.tags
-		});
+		}, Card).get();
+
+		CardService.saveCard(card);
 
 		this.title = '';
 		this.content = '';
@@ -16,7 +28,7 @@ angular.module('tec-demo.directives').controller("EditorController", ['$scope', 
 	};
 
 	var transformChip = function(chip) {
-		console.log('transform the chip', chip);
+		logger.log('transform the chip', chip);
 
 		return {
 			text : chip
