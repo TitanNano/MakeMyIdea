@@ -62,8 +62,7 @@ gulp.task('copyDependecies', function(){
 });
 
 gulp.task('watch', function(){
-	gulp.watch(['src/**/*.*', '!src/**/*.js'], ['copy']);
-	gulp.watch(['src/**/*.js'], ['copyToDist']);
+	gulp.watch(['src/**/*.*'], ['copyToDist', 'clean:temp']);
 })
 
 gulp.task('default', ['compile', 'copyDependecies', 'copyToDist', 'clean:temp']);
