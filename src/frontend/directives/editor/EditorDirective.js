@@ -7,5 +7,5 @@ angular.module('tec-demo.directives').directive('demoEditor', function(){
 
 		templateUrl:'./directives/editor/Template.html',
 		controller: 'EditorController'
-	}
+	};
 });

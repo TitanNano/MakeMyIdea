@@ -17,10 +17,17 @@ body {
 
 .root {
 	height: 100%;
+	overflow: auto;
 }
 
-.main-list {
+demo-card-list > div {
 	width: 57%;
 	margin: 0 auto;
 	font-size: 2rem;
+	margin-top: 6rem;
+}
+
+demo-header md-toolbar {
+	position: fixed;
+	width: 100%;
 }
