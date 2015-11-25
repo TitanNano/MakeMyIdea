@@ -1,8 +1,9 @@
 import { Make } from 'modules/make.js';
 import Card from 'prototypes/Card.js';
 import Logger from 'prototypes/Logger.js';
+import CardService from 'services/CardService.js'
 
-angular.module('tec-demo.directives').controller("EditorController", ['$scope', 'CardService', function($scope, CardService){
+angular.module('tec-demo.directives').controller("EditorController", ['$scope', function($scope){
 
 	/**
 	 * @inner
