@@ -1,4 +1,4 @@
-angular.module('tec-demo.directives', ['ngMaterial', 'tec-demo.services']);
+angular.module('tec-demo.directives', ['ngMaterial']);
 
 require('../directives/header/HeaderDirective.js');
 require('../directives/card/CardDirective.js');

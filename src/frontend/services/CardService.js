@@ -5,6 +5,7 @@
 import { Make, hasPrototype } from 'modules/make.js';
 import Logger from 'prototypes/Logger.js';
 import Card from 'prototypes/Card.js';
+import NetworkService from 'services/NetworkService.js';
 
 let logger = Make(Logger)('CardService');
 
@@ -13,12 +14,7 @@ let logger = Make(Logger)('CardService');
  */
 let CardService = {
 
-    /**
-     * @private
-     */
-    cardList : new Promise(function(success){
-        success([]);
-    }),
+    cardList : NetworkService.apiCall('cardList'),
 
     /**
      * saves a card into our card storage.
@@ -26,11 +22,16 @@ let CardService = {
      * @param {Card} card
      */
     saveCard : function(card) {
-        this.cardList.then(function(cardList) {
+        return this.cardList.then(cardList => {
             if (hasPrototype(card, Card)) {
-                cardList.push(card);
+                logger.log('saving card!', card);
+
+                return NetworkService.apiCall('card/save', card).then(() => {
+                    return cardList.push(card);
+                });
             } else {
                 logger.warn('unable to save object which is not of type Card');
+                return Promise.reject('unable to save object which is not of type Card');
             }
         });
     },
@@ -41,7 +42,7 @@ let CardService = {
        * @param {Card} card
        */
     deleteCard : function(card) {
-        this.cardList.then(function(cardList) {
+        this.cardList.then(cardList => {
             var cardIndex = cardList.indexOf(card);
             if (cardIndex >= 0){
                 cardList.splice(cardIndex, 1);
@@ -52,4 +53,4 @@ let CardService = {
     },
 }
 
-export default CardService
+export default CardService;

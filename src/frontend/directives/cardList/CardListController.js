@@ -4,9 +4,10 @@ import CardService from 'services/CardService.js'
 
 angular.module('tec-demo.directives').controller("CardListController", ['$scope', function($scope) {
     var logger = Make(Logger)('CardListController');
-	
-    CardService.cardList.then(function(cardList) {
+
+    CardService.cardList.then(cardList => {
         $scope.cardList = cardList;
+
+        logger.log('got the new cards!!');
     });
-    logger.log('got the new cards!!');
 }])

@@ -21,11 +21,13 @@ angular.module('tec-demo.directives').controller("EditorController", ['$scope', 
 			tags : this.tags
 		}, Card).get();
 
-		CardService.saveCard(card);
+		CardService.saveCard(card).then(() => {
+			this.title = '';
+			this.content = '';
+			this.tags = [];
 
-		this.title = '';
-		this.content = '';
-		this.tags = [];
+			$scope.$apply();
+		});
 	};
 
 	var transformChip = function(chip) {
