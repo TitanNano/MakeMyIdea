@@ -42,12 +42,17 @@ let CardService = {
        * @param {Card} card
        */
     deleteCard : function(card) {
-        this.cardList.then(cardList => {
-            var cardIndex = cardList.indexOf(card);
-            if (cardIndex >= 0){
-                cardList.splice(cardIndex, 1);
+        return this.cardList.then(cardList => {
+            if (hasPrototype(card, Card)) {
+                logger.log('deleting card!', card);
+
+                return NetworkService.apiCall('card/delete', card).then(() => {
+                    var cardIndex = cardList.indexOf(card);
+                    return cardList.splice(cardIndex, 1);
+                });
             } else {
-                logger.warn('unable to delete Card that is not in List');
+                logger.warn('unable to delete object which is not of type Card');
+                return Promise.reject('unable to delete object which is not of type Card');
             }
         });
     },

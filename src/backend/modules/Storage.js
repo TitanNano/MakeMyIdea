@@ -43,6 +43,21 @@ let Interface =  {
 		});
 	},
 
+    deleteItem : function(collection, item) {
+        return db.then(db => {
+			return new Promise((success, failure) => {
+				db.collection(collection).remove(item, (error, status) => {
+					if (error) {
+						failure(error);
+					} else {
+						console.log(status.result);
+						success(status.result);
+					}
+				});
+			});
+		});
+    },
+
 	queryItems : function(collection, query, forceList) {
 		return db.then(db => {
 			let p = new Promise((success, failure) => {
