@@ -2,7 +2,10 @@
  * @namespace tec-demo.services
  */
 
-import { Make, hasPrototype } from 'modules/make.js';
+import {
+    Make, hasPrototype
+}
+from 'modules/make.js';
 import Logger from 'prototypes/Logger.js';
 import Card from 'prototypes/Card.js';
 import NetworkService from 'services/NetworkService.js';
@@ -14,14 +17,14 @@ let logger = Make(Logger)('CardService');
  */
 let CardService = {
 
-    cardList : NetworkService.apiCall('cardList'),
+    cardList: NetworkService.apiCall('cardList'),
 
     /**
      * saves a card into our card storage.
      *
      * @param {Card} card
      */
-    saveCard : function(card) {
+    saveCard: function(card) {
         return this.cardList.then(cardList => {
             if (hasPrototype(card, Card)) {
                 logger.log('saving card!', card);
@@ -36,12 +39,12 @@ let CardService = {
         });
     },
 
-      /**
-       * deletes a card from our card storage.
-       *
-       * @param {Card} card
-       */
-    deleteCard : function(card) {
+    /**
+     * deletes a card from our card storage.
+     *
+     * @param {Card} card
+     */
+    deleteCard: function(card) {
         return this.cardList.then(cardList => {
             if (hasPrototype(card, Card)) {
                 logger.log('deleting card!', card);
