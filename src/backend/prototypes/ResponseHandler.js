@@ -5,14 +5,17 @@ let ResponseHandler = {
 
 	_response : null,
 
+	logger : null,
+
 	/**
 	 * The ResponseHandler takes care of sending the controlers response object properly.
 	 *
 	 * @constructs
 	 * @param {ExpressResponse} response
 	 */
-	_make : function(response) {
+	_make : function(response, logger) {
 		this._response = response;
+		this.logger = logger;
 
 		//default headers
 		this.setHeaders({
@@ -41,8 +44,19 @@ let ResponseHandler = {
 		let data = JSON.stringify(response);
 
 		this._response.end(data);
-	}
+	},
 
+	/**
+	 * redirects a request.
+	 *
+	 * @param {...*} args
+	 */
+	redirect : function(path) {
+		this.logger.log('redirecting from', this._response.req.url, 'to', path);
+
+		this._response.redirect(path);
+		this._response.end();
+	}
 }
 
 export default ResponseHandler;

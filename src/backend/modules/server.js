@@ -26,7 +26,7 @@ let controller = function(controller){
 
 		var handlePostGet = (request, response) => {
 			console.log('incomming request for', controller.route);
-			controller.request(request, Make(ResponseHandler)(response));
+			controller.request(request, Make(ResponseHandler)(response, controller.logger));
 		};
 
 		route.post(handlePostGet);
@@ -49,7 +49,7 @@ let controller = function(controller){
  */
 let start = function(port){
 	if (!server) {
-		let controlerList = Glob.sync('./dist/backend/**/controller/**/*.js');
+		let controlerList = Glob.sync('./dist/**/controller/**/*.js');
 
 		controlerList = (controlerList.length > 0) ? controlerList : Glob.sync('./**/controller/**/*.js');
 
@@ -69,7 +69,22 @@ let start = function(port){
 	return server;
 }
 
+let staticDir = function(dir, path) {
+	if (!path) {
+		path = dir;
+	}
+
+	path = '/' + path;
+	dir = Path.resolve(__dirname, '..', dir) + '/';
+
+	console.log('mounting', dir, 'on', path);
+
+	return app.use(path, Express.static(dir));
+}
+
 export default {
 	start : start,
-	controller : controller
+	controller : controller,
+	mount : staticDir,
+	use : app.use,
 };
