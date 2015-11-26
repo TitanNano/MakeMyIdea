@@ -18,10 +18,8 @@ export default Make({
 		let controller = this;
 		let p = Storage.getCollection('cards');
 
-		this.logger.log(p);
-
 		p.then(list => {
-			controller.logger.log('serving card list!', list);
+			controller.logger.log('serving card list!');
 			response.send(list);
 		});
 	}
