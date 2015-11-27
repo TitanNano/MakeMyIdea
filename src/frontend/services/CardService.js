@@ -14,7 +14,11 @@ let logger = Make(Logger)('CardService');
  */
 let CardService = {
 
-    cardList : NetworkService.apiCall('cardList'),
+    cardList : NetworkService.apiCall('cardList').then(cardList => {
+        return cardList.map(card => {
+            return Make(card, Card).get();
+        })
+    }),
 
     /**
      * saves a card into our card storage.
