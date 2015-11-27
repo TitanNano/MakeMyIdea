@@ -27,7 +27,11 @@ let Interface =  {
 	saveItem : function(collection, item){
 		return db.then(db => {
 			return new Promise((success, failure) => {
+                item._id = ObjectId(item._id);
+
 				let key = item._id ? { _id : item._id } : item;
+
+                logger.log(key);
 
 				db.collection(collection).updateOne(key, item, {
 					upsert : true

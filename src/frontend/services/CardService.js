@@ -33,7 +33,11 @@ let CardService = {
             if (hasPrototype(card, Card)) {
                 logger.log('saving card!', card);
 
-                return NetworkService.apiCall('card/save', card).then(() => {
+                return NetworkService.apiCall('card/save', card).then(dbStatus => {
+                    if (dbStatus.upserted) {
+                        card._id = dbStatus.upserted[0]._id;
+                    }
+
                     let index = cardList.findIndex(item => card._id === item._id);
                     logger.log(index);
                     if (!index) {
@@ -41,8 +45,6 @@ let CardService = {
                     } else {
                         return cardList.splice(index, 1, card);
                     }
-
-
                 });
             } else {
                 logger.warn('unable to save object which is not of type Card');
