@@ -4,7 +4,8 @@ var gulp 	 = require('gulp'),
 	sourcemaps = require('gulp-sourcemaps'),
 	es = require('event-stream'),
 	changed = require('gulp-changed'),
-	runSequence = require('run-sequence');
+	runSequence = require('run-sequence'),
+    indent = require("gulp-indent");
 
 var distServer = 'dist/';
 var distClient = 'dist/client/';
@@ -65,6 +66,15 @@ gulp.task('copyDependecies', function(){
 				  'bower_components/angular-material/angular-material.min.js'])
 			.pipe(gulp.dest(distClient + 'libs/angular/'))
 	);
+});
+
+gulp.task('indent', function(){
+    gulp.src(['src/**/*.*', '!src/backend/node_modules/**'])
+        .pipe(indent({
+            tabs : false,
+            amount : 4
+        }))
+        .pipe(gulp.dest('src/'));
 });
 
 gulp.task('watch', ['default'], function(){
