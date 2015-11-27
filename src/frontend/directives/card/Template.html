@@ -1,14 +1,14 @@
 <md-card>
-    <md-card-content>
-        <h2 class="md-title">{{card.title}}</h2>
-        <p>
-            {{card.content}}
-        </p>
-        <md-chips ng-model="card.tags" readonly="true">
-            <md-chip-template>{{$chip.text}}</md-chip-template>
-        </md-chips>
-    </md-card-content>
-    <md-card-actions layout-align="end center" layout="row">
-        <md-button ng-click="delete(card)">Delete</md-button>
-    </md-card-actions>
+	<md-card-content>
+		<h2 class="md-title">{{card.title}}</h2>
+		<p>
+			{{card.content}}
+		</p>
+		<md-chips ng-model="card.tags" readonly="true">
+    		<md-chip-template>{{$chip.text}}</md-chip-template>
+		</md-chips>
+	</md-card-content>
+	<md-card-actions layout="row" layout-align="end center">
+		<md-button ng-click="delete(card)">Delete</md-button>
+	</md-card-actions>
 </md-card>

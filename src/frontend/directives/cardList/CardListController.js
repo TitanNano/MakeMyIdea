@@ -1,8 +1,5 @@
 import Logger from 'prototypes/Logger.js';
-import {
-    Make
-}
-from 'modules/make.js';
+import { Make } from 'modules/make.js';
 import CardService from 'services/CardService.js'
 
 angular.module('tec-demo.directives').controller("CardListController", ['$scope', function($scope) {

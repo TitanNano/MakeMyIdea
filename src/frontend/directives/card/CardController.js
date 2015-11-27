@@ -4,7 +4,8 @@ angular.module('tec-demo.directives').controller("CardController", ['$scope', fu
 
     $scope.delete = function(card) {
         CardService.deleteCard(card).then(() => {
-            $scope.$apply();
-        });
-    };
+			$scope.$apply();
+		});
+    }
+
 }])
