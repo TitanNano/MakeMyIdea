@@ -43,12 +43,14 @@ angular.module('tec-demo.directives').controller("EditorController", ['$scope', 
 
 
   CardService.onEditCard((card,success,failure) => {
-    $scope.editor.card = card.clone(); 
+    $scope.editor.card = card.clone();
     $scope.editor.success = success;
     $scope.editor.cancel = function(){
-      failure("editing canceled");
-    clearFields();
+        failure("editing canceled");
+        clearFields();
     }
+
+    location.hash = 'editor';
   })
 
 
