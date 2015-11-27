@@ -57,13 +57,13 @@ gulp.task('copyDependecies', function(){
 		gulp.src('node_modules/systemjs/dist/system.js')
 			.pipe(gulp.dest(distClient + 'libs/')),
 
-		gulp.src(['bower_components/angular-material/angular-material.min.css'])
+		gulp.src(['node_modules/angular-material/angular-material.min.css'])
 			.pipe(gulp.dest(distClient + 'stylesheets/angular')),
 
-		gulp.src(['bower_components/angular/angular.min.js',
-				  'bower_components/angular-aria/angular-aria.min.js',
-				  'bower_components/angular-animate/angular-animate.min.js',
-				  'bower_components/angular-material/angular-material.min.js'])
+		gulp.src(['node_modules/angular/angular.min.js',
+				  'node_modules/angular-aria/angular-aria.min.js',
+				  'node_modules/angular-animate/angular-animate.min.js',
+				  'node_modules/angular-material/angular-material.min.js'])
 			.pipe(gulp.dest(distClient + 'libs/angular/'))
 	);
 });
