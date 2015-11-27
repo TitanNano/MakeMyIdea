@@ -14,18 +14,12 @@ angular.module('tec-demo.directives').controller("EditorController", ['$scope', 
 	/**
 	 * saves the current card into the CardService.
 	 */
-	var saveEditor = function(){
-		var card = Make({
-			title : this.title,
-			content : this.content,
-			tags : this.tags
-		}, Card).get();
-
+	var saveEditor = function(card){
 		CardService.saveCard(card).then(() => {
-			this.title = '';
-			this.content = '';
-			this.tags = [];
-
+            if ($scope.editor.success) {
+                $scope.editor.success();
+            }
+			clearFields();
 			$scope.$apply();
 		});
 	};
@@ -38,11 +32,37 @@ angular.module('tec-demo.directives').controller("EditorController", ['$scope', 
 		};
 	};
 
+  var clearFields = function () {
+    $scope.editor.cancel = null;
+    $scope.editor.success = null;
+    $scope.editor.card = Make({
+      title : '',
+      content : '',
+		}, Card)();
+  }
+
+
+  CardService.onEditCard((card,success,failure) => {
+    $scope.editor.card = card.clone(); 
+    $scope.editor.success = success;
+    $scope.editor.cancel = function(){
+      failure("editing canceled");
+    clearFields();
+    }
+  })
+
+
 	$scope.editor = {
 		title : '',
 		content : '',
 		tags : [],
 		save : saveEditor,
 		onTransformChip : transformChip,
+    cancel : null,
+    card : Make({
+	     title : '',
+       content : '',
+		}, Card)()
+
 	}
 }])

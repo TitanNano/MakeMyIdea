@@ -9,6 +9,7 @@
 		</md-chips>
 	</md-card-content>
 	<md-card-actions layout="row" layout-align="end center">
-		<md-button ng-click="delete(card)">Delete</md-button>
+    <md-button ng-disabled="editing" ng-click="edit(card)">Edit</md-button>
+		<md-button ng-disabled="editing" ng-click="delete(card)">Delete</md-button>
 	</md-card-actions>
 </md-card>

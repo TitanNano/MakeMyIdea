@@ -7,6 +7,8 @@ import Logger from 'prototypes/Logger.js';
 import Card from 'prototypes/Card.js';
 import NetworkService from 'services/NetworkService.js';
 
+
+
 let logger = Make(Logger)('CardService');
 
 /**
@@ -19,6 +21,7 @@ let CardService = {
             return Make(card, Card).get();
         })
     }),
+    editCardCallback : null,
 
     /**
      * saves a card into our card storage.
@@ -31,7 +34,15 @@ let CardService = {
                 logger.log('saving card!', card);
 
                 return NetworkService.apiCall('card/save', card).then(() => {
-                    return cardList.push(card);
+                    let index = cardList.findIndex(item => card._id === item._id);
+                    logger.log(index);
+                    if (!index) {
+                        return cardList.push(card);
+                    } else {
+                        return cardList.splice(index, 1, card);
+                    }
+
+
                 });
             } else {
                 logger.warn('unable to save object which is not of type Card');
@@ -39,6 +50,35 @@ let CardService = {
             }
         });
     },
+
+    /**
+     * edits a card
+     *
+     * @param {Card} card
+     */
+    editCard : function(card) {
+            if (hasPrototype(card, Card)) {
+                logger.log('editing card!', card);
+
+                if (this.editCardCallback) {
+                  return new Promise ((sucess, failure) => {
+                    this.editCardCallback(card, sucess, failure);
+                  });
+                } else {
+                  return Promise.reject("No editCardCallback set");
+                }
+
+            } else {
+                logger.warn('unable to edit Card');
+                return Promise.reject('unable to edit Card');
+            }
+    },
+
+
+    onEditCard : function (callback) {
+        this.editCardCallback = callback;
+    },
+
 
       /**
        * deletes a card from our card storage.
