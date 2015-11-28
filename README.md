@@ -16,7 +16,7 @@ For Information about the Project please read the README in the master branch
 
 ##### For now use the Branch 'tec-demo
 
-- run `npm run build` to install all required files
+- run `npm run setup` to install all required files
 - run MongoDB
 - run `npm run server`
 - [Visit your localhost on Port 3030](http://localhost:3030/)
