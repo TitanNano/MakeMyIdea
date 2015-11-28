@@ -6,9 +6,12 @@
     "loadEagerly": [
         "src/**/*.js"
     ],
-    "plugins" : {
-        "modules" : {},
-        "es_modules" : {},
-        "doc_comment" : {}
+    "dontLoad": [
+        "src/**/npm_modules/**/*.js"
+    ],
+    "plugins": {
+        "modules": {},
+        "es_modules": {},
+        "doc_comment": {}
     }
 }
