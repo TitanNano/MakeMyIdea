@@ -22,7 +22,7 @@ let stripHashKey = function(object){
 /**
  * @lends NetworkRequest.prototype
  */
-export default {
+let NetworkRequest = {
 	_body : {},
 	_headers : {},
 	type : '',
@@ -120,4 +120,6 @@ export default {
 
 		return promise;
 	}
-}
+};
+
+export default NetworkRequest;

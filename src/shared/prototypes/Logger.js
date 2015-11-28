@@ -1,8 +1,7 @@
 /**
- * @module Logger
+ * @lends Logger.prototype
  */
-
-export default {
+let Logger = {
 	prefix : '',
 
 	log : function(...args) {
@@ -21,3 +20,5 @@ export default {
 		this.prefix = prefix + ':';
 	}
 }
+
+export default Logger;

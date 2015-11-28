@@ -7,8 +7,6 @@ import Logger from 'prototypes/Logger.js';
 import Card from 'prototypes/Card.js';
 import NetworkService from 'services/NetworkService.js';
 
-
-
 let logger = Make(Logger)('CardService');
 
 /**
@@ -16,6 +14,12 @@ let logger = Make(Logger)('CardService');
  */
 let CardService = {
 
+    /**
+     * stores the cardList Promise
+     *
+     * @static
+     * @type {Promise}
+     */
     cardList : NetworkService.apiCall('cardList').then(cardList => {
         return cardList.map(card => {
             return Make(card, Card).get();
@@ -76,17 +80,21 @@ let CardService = {
             }
     },
 
-
+    /**
+     * Accepts a callback which will be called as soon as we want to edit a card
+     *
+     * @param {function} callback
+     */
     onEditCard : function (callback) {
         this.editCardCallback = callback;
     },
 
 
-      /**
-       * deletes a card from our card storage.
-       *
-       * @param {Card} card
-       */
+    /**
+     * deletes a card from our card storage.
+     *
+     * @param {Card} card
+     */
     deleteCard : function(card) {
         return this.cardList.then(cardList => {
             if (hasPrototype(card, Card)) {
