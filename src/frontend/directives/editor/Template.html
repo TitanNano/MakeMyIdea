@@ -1,0 +1,19 @@
+<md-card id="editor">
+	<md-card-content>
+		<md-input-container>
+			<label for="title">Title</label>
+			<input name="title" type="text" ng-model="editor.card.title" class="md-title">
+		</md-input-container>
+		<md-input-container>
+			<label for="content">Content</label>
+			<textarea name="content" ng-model="editor.card.content"></textarea>
+		</md-input-container>
+		<md-chips ng-model="editor.card.tags" md-on-append="editor.onTransformChip($chip)">
+    		<md-chip-template>{{$chip.text}}</md-chip-template>
+		</md-chips>
+	</md-card-content>
+	<md-card-actions layout="row" layout-align="end center">
+        <md-button ng-if="editor.cancel" ng-click="editor.cancel()">Cancel</md-button>
+		<md-button ng-disabled="!editor.card.content" ng-click="editor.save(editor.card)">Save</md-button>
+	</md-card-actions>
+</md-card>

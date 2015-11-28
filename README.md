@@ -1,14 +1,8 @@
 # Make My Idea!
-
-
-
 Project made for SRH Heidelberg Module Web Development II - Bachelor of Science: Applied Computer Science
 
 
-
 ### Idea behind Make My Idea
-
-
 We are creating a platform in which you can contribute to projects - if you think about kickstarter now you are right! But instead of backing a project with your hard earned money you directly contribute to it using your computer skills.
 
 You might be a Designer, Programmer, Story Writer or Web Developer searching for a nice project in your spare time but you just don't know how to get in contact with people who have the same Ideas like you. Search no more! Make My Idea is the perfect platform for motivated individuals like you - always on the lookout for new challenges!
@@ -24,12 +18,7 @@ Stay tuned!
 
 
 ### Instructions to start
-
-##### For now use the Branch 'tec-demo
-
-- 'npm update' in root
-- 'bower update' in root
-- 'npm update' in backend
+- run `npm run setup` to install all required files
 - run MongoDB
-- 'npm run server' in root
-- [Visit your localhost using Port #3030](http://localhost:3030/)
+- run `npm run server`
+- [Visit your localhost on Port 3030](http://localhost:3030/)

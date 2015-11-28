@@ -1,44 +1,86 @@
 var gulp 	 = require('gulp'),
 	babel = require('gulp-babel'),
 	del = require('del'),
-	sourcemaps = require('gulp-sourcemaps');
+	sourcemaps = require('gulp-sourcemaps'),
+	es = require('event-stream'),
+	changed = require('gulp-changed'),
+	runSequence = require('run-sequence'),
+    indent = require("gulp-indent");
 
-var dist = 'dist/';
-
-var cutSrcFromPath = function(pathObject, filePath) {
-	return pathObject.join()
-}
+var distServer = 'dist/';
+var distClient = 'dist/client/';
+var temp = 'dist/temp/';
 
 gulp.task('clean', function() {
 	return del(['dist']);
 });
 
-gulp.task('copy', ['clean'], function(){
-	return gulp.src(['src/**/*.*', '!src/shared/**/*.js'])
-		.pipe(gulp.dest(dist));
+gulp.task('copyBuildStage', function(){
+	return es.merge(gulp.src(['src/**/*.*', '!src/shared/**/*.js'])
+						.pipe(changed(distServer))
+						.pipe(gulp.dest(temp)),
 
+					gulp.src('src/shared/**/*.*')
+						.pipe(changed(distServer))
+						.pipe(gulp.dest(temp + 'frontend/'))
+						.pipe(gulp.dest(temp + 'backend/'))
+				);
 });
 
-gulp.task('copy:shared', ['copy'], function(){
-	return gulp.src('src/shared/**/*.*')
-		.pipe(gulp.dest(dist + 'frontend/'))
-		.pipe(gulp.dest(dist + 'backend/'));
-})
-
-gulp.task('compile', ['copy', 'copy:shared'], function(){
-	return gulp.src([dist + '/**/*.js', '!**/node_modules/**'])
+gulp.task('compile', ['copyBuildStage'], function(){
+	return gulp.src([temp + '/**/*.js', '!**/node_modules/**', '!**/frontend/libs/**'])
+		.pipe(changed(distServer))
 		.pipe(sourcemaps.init())
 			.pipe(babel({
 				presets : ['es2015'],
 				comments : false
 			}))
 		.pipe(sourcemaps.write('.'))
-		.pipe(gulp.dest(dist));
-})
-
-gulp.task('copyBowerDependecies', ['clean'], function(){
-	return gulp.src('bower_components/systemjs/build/systemjs.min.js')
-		.pipe(gulp.dest(dist + 'frontend/lib/'));
+		.pipe(gulp.dest(temp));
 });
 
-gulp.task('default', ['copy', 'copy:shared', 'compile', 'copyBowerDependecies']);
+gulp.task('copyToDist', ['copyBuildStage', 'compile'],  function(){
+	return es.merge(gulp.src(temp + 'backend/**')
+						.pipe(gulp.dest(distServer)),
+
+					gulp.src(temp + 'frontend/**')
+						.pipe(gulp.dest(distClient))
+				);
+});
+
+gulp.task('clean:temp', ['copyToDist'], function(){
+	return del(['dist/temp']);
+})
+
+gulp.task('copyDependecies', function(){
+	return es.merge(
+		gulp.src('node_modules/systemjs/dist/system.js')
+			.pipe(gulp.dest(distClient + 'libs/')),
+
+		gulp.src(['node_modules/angular-material/angular-material.min.css'])
+			.pipe(gulp.dest(distClient + 'stylesheets/angular')),
+
+		gulp.src(['node_modules/angular/angular.min.js',
+				  'node_modules/angular-aria/angular-aria.min.js',
+				  'node_modules/angular-animate/angular-animate.min.js',
+				  'node_modules/angular-material/angular-material.min.js'])
+			.pipe(gulp.dest(distClient + 'libs/angular/'))
+	);
+});
+
+gulp.task('indent', function(){
+    gulp.src(['src/**/*.*', '!src/backend/node_modules/**'])
+        .pipe(indent({
+            tabs : false,
+            amount : 4
+        }))
+        .pipe(gulp.dest('src/'));
+});
+
+gulp.task('watch', ['default'], function(){
+	gulp.watch(['src/**/*.*'], ['copyToDist', 'clean:temp']);
+})
+
+gulp.task('default', function(cb){
+	runSequence('clean', ['copyDependecies', 'clean:temp'], cb);
+});
