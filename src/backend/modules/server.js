@@ -17,7 +17,11 @@ app.use(bodyParser.json());
 
 let server = null;
 
-
+/**
+ * constructs and registers a controller in the server.
+ *
+ * @param {Controller} controller
+ */
 let controller = function(controller){
 	if (hasPrototype(controller, Controller)) {
 		controller = Make(controller)();
@@ -69,6 +73,10 @@ let start = function(port){
 	return server;
 }
 
+/**
+ * @param {string} dir
+ * @param {string} path
+ */
 let staticDir = function(dir, path) {
 	if (!path) {
 		path = dir;

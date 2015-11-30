@@ -3,8 +3,14 @@
  */
 let ResponseHandler = {
 
+    /**
+     * @type {Response}
+     */
 	_response : null,
 
+    /**
+     * @type {Logger}
+     */
 	logger : null,
 
 	/**

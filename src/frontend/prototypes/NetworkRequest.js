@@ -1,5 +1,7 @@
 
-
+/**
+ * @param {Object} object
+ */
 let stripHashKey = function(object){
 	if (Array.isArray(object)) {
 		object = object.map(stripHashKey);
@@ -23,10 +25,31 @@ let stripHashKey = function(object){
  * @lends NetworkRequest.prototype
  */
 let NetworkRequest = {
-	_body : {},
+    /**
+     * @private
+     * @type {Object}
+     */
+    _body : {},
+
+    /**
+     * @private
+     * @type {Object}
+     */
 	_headers : {},
+
+    /**
+     * @type {string}
+     */
 	type : '',
+
+    /**
+     * @type {string}
+     */
 	method : '',
+
+    /**
+     * @type {string}
+     */
 	url : '',
 
 	/**

@@ -5,6 +5,7 @@ import Logger from 'prototypes/Logger.js';
 let logger = Make(Logger)('NetworkService');
 
 let NetworkService = {
+
     _pending : {},
 
     host : System.import('modules/Config.js').then(Config => {
