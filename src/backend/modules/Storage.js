@@ -4,20 +4,23 @@ import { Make } from './make.js';
 import Logger from '../prototypes/Logger.js';
 import Config from './Config.js'
 
-let url = Config.default.getServerUrl();
+let url = Config.getDbUrl();
 let logger = Make(Logger)('Storage');
 let { MongoClient, ObjectId } = MongoDB;
 
-let db = url.then((success, failure) => {
-	MongoClient.connect(url, function(error, db){
-		if (error) {
-			failure(error);
-			return;
-		}
+let db = url.then(url => {
+    logger.log(url);
+    return new Promise((success, failure) => {
+        MongoClient.connect(url, function(error, db){
+            if (error) {
+                failure(error);
+                return;
+            }
 
-		logger.log("connected correctly to MongoDB server.");
-		success(db);
-	})
+            logger.log("connected correctly to MongoDB server.");
+            success(db);
+        });
+	});
 });
 
 db.catch(function(e){

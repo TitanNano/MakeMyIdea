@@ -1,14 +1,14 @@
-import { Make } from 'modules/make.js';
-import {ConfigLoader} from 'modules/ConfigLoader.js'
+import { Make } from './make.js';
+import {ConfigLoader} from './ConfigLoader.js'
 
-let config = Promise.all([ConfigLoader('config/config.json'), ConfigLoader('config/config.default.json')]).then(values => {
+let config = Promise.all([ConfigLoader('./config/config.json'), ConfigLoader('./config/config.default.json')]).then(values => {
     let [config, configDefault] = values;
     return Make(config, configDefault).get();
 });
 
 let Config = {
     getServerUrl : function(){
-        return config.then(config => {
+        return config.then(config => {            
             return `${config.server.host}:${config.server.port}`;
         })
     },

@@ -1,8 +1,13 @@
-var fs = require('fs');
+import fs from 'fs';
+import Path from 'path';
 
-export var ConfigLoader = function(url){
-    fs.readFile(url, function (err, data) {
-        if (err) throw err;
-        return data;
+export let ConfigLoader = function(url){
+    return new Promise((success, failure) => {
+        url = Path.resolve(__dirname, '..', url);
+
+        fs.readFile(url, 'utf8', (err, data) => {
+            if (err) failure(err);
+            success(JSON.parse(data));
+        });
     });
 }
