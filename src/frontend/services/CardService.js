@@ -39,12 +39,12 @@ let CardService = {
 
                 return NetworkService.apiCall('card/save', card).then(dbStatus => {
                     if (dbStatus.upserted) {
-                        card._id == dbStatus.upserted[0]._id;
+                        card._id = dbStatus.upserted[0]._id;
                     }
 
                     let index = cardList.findIndex(item => card._id === item._id);
                     logger.log(index);
-                    if (!index) {
+                    if (index < 0) {
                         return cardList.push(card);
                     } else {
                         return cardList.splice(index, 1, card);
