@@ -9,10 +9,8 @@ angular.module('tec-demo.directives').controller("CardController", ['$scope', fu
         CardService.editCard(card).then(() => {
             $scope.editing = false;
             $scope.$apply();
-            location.hash = card._id;
         }, () => {
             $scope.editing = false;
-            location.hash = card._id;
         });
     };
 
