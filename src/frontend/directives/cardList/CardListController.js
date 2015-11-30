@@ -7,7 +7,7 @@ angular.module('tec-demo.directives').controller("CardListController", ['$scope'
 
     CardService.cardList.then(cardList => {
         $scope.cardList = cardList;
-
+        $scope.apply;
         logger.log('got the new cards!!');
     });
 }])

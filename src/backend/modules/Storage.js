@@ -2,12 +2,13 @@ import MongoDB from 'mongodb';
 
 import { Make } from './make.js';
 import Logger from '../prototypes/Logger.js';
+import Config from './Config.js'
 
-let url = 'mongodb://localhost:27017/TecDemo';
+let url = Config.default.getServerUrl();
 let logger = Make(Logger)('Storage');
 let { MongoClient, ObjectId } = MongoDB;
 
-let db = new Promise(function(success, failure){
+let db = url.then((success, failure) => {
 	MongoClient.connect(url, function(error, db){
 		if (error) {
 			failure(error);

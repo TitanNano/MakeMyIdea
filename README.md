@@ -19,6 +19,7 @@ Stay tuned!
 
 ### Instructions to start
 - run `npm run setup` to install all required files
+- run `gulp` to build the dist directory
 - run MongoDB
 - run `npm run server`
 - [Visit your localhost on Port 3030](http://localhost:3030/)
