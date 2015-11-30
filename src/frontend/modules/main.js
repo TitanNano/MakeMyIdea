@@ -2,7 +2,7 @@ import './angular.js';
 import './directives.js';
 
 angular.module('tec-demo.directives')
-.config(function($mdThemingProvider) {
+.config(function($mdThemingProvider, $routeProvider) {
   $mdThemingProvider.theme('default')
     .primaryPalette('blue-grey', {
       'default': '600',
@@ -22,4 +22,11 @@ angular.module('tec-demo.directives')
     .backgroundPalette('teal', {
       'default' : '50'
     });
+
+    $routeProvider
+    .when('/tec-demo', {
+        template : '<app-page-tec-demo></app-page-tec-demo>'
+    })
+
+    .otherwise('/tec-demo');
 });

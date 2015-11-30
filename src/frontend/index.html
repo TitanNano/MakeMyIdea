@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+    <meta name="google-signin-client_id" content=" 1075540561942-vchi1ljb9a87it0c867894n3gla3jmcc.apps.googleusercontent.com ">
+	<title>Make My Idea</title>
 
     <link rel="stylesheet" type="text/css" href="stylesheets/angular/angular-material.min.css">
 	<link rel="stylesheet" href="stylesheets/index.css">
@@ -13,7 +14,7 @@
 <body>
 	<div ng-app="tec-demo.directives" class="root">
 		<demo-header></demo-header>
-		<demo-card-list></demo-card-list>
+        <ng-view></ng-view>
 	</div>
 </body>
 </html>
