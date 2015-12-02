@@ -65,6 +65,10 @@ gulp.task('copyDependecies', function(){
 		gulp.src(['node_modules/angular-material/angular-material.min.css'])
 			.pipe(gulp.dest(distClient + 'stylesheets/angular')),
 
+        gulp.src(['node_modules/gsap/src/minified/TweenMax.min.js']).pipe(gulp.dest(distClient + 'libs/gsap/')),
+
+        gulp.src(['node_modules/angular-ui-bootstrap/ui-bootstrap-tpls.min.js/']).pipe(gulp.dest(distClient + 'libs/bootstrap/')),
+
 		gulp.src(['node_modules/angular/angular.min.js',
 				  'node_modules/angular-aria/angular-aria.min.js',
 				  'node_modules/angular-animate/angular-animate.min.js',

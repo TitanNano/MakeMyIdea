@@ -1,4 +1,6 @@
 import './angular.js';
+import 'libs/bootstrap/ui-bootstrap-tpls.min.js';
+import 'libs/gsap/TweenMax.min.js';
 import './directives.js';
 
 angular.module('app-mmi')
@@ -30,6 +32,10 @@ angular.module('app-mmi')
 
     .when('/sign-in', {
         template : '<app-page-signin flex="grow" layout></app-page-sign-in>'
+    })
+
+    .when('/launch', {
+        template: '<app-page-launch flex="grow" layout></app-page-launch>'
     })
 
     .otherwise('/tec-demo');

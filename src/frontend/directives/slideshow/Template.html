@@ -1,0 +1,18 @@
+<body ng-app="slideshow" ng-controller="MainCtrl"> //geht das?
+    <div class="col-xs-12" ng-if="progress !== 100">
+        <progressbar class="progress-striped" value="progress">{{progress | number:0}}%</progressbar>
+    </div>
+    <img ng-show="loaded" bg-image class="fullBg {{currentAnimation}}" ng-repeat="slide in slides"
+         ng-if="isCurrentSlideIndex($index)"
+         ng-src="{{slide.src}}">
+
+    <ul ng-show="loaded" class="nav nav-pills">
+        <li ng-class="{'active':isCurrentAnimation('slide-left-animation')}"><a ng-click="setCurrentAnimation('slide-left-animation')">LEFT</a></li>
+        <li ng-class="{'active':isCurrentAnimation('slide-down-animation')}"><a ng-click="setCurrentAnimation('slide-down-animation')">DOWN</a></li>
+        <li ng-class="{'active':isCurrentAnimation('fade-in-animation')}"><a ng-click="setCurrentAnimation('fade-in-animation')">FADE</a></li>
+    </ul>
+
+    
+
+
+</body>
