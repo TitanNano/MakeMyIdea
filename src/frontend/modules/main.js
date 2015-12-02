@@ -1,7 +1,7 @@
 import './angular.js';
 import './directives.js';
 
-angular.module('tec-demo.directives')
+angular.module('app-mmi')
 .config(function($mdThemingProvider, $routeProvider) {
   $mdThemingProvider.theme('default')
     .primaryPalette('blue-grey', {
@@ -26,6 +26,10 @@ angular.module('tec-demo.directives')
     $routeProvider
     .when('/tec-demo', {
         template : '<app-page-tec-demo></app-page-tec-demo>'
+    })
+
+    .when('/sign-in', {
+        template : '<app-page-signin flex="grow" layout></app-page-sign-in>'
     })
 
     .otherwise('/tec-demo');

@@ -1,5 +1,5 @@
 
-angular.module('tec-demo.directives').directive('appPageTecDemo', function(){
+angular.module('app-mmi').directive('appPageTecDemo', function(){
 
     return {
         restrict:'E',

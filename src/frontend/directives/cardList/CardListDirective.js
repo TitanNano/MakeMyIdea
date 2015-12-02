@@ -1,6 +1,6 @@
 import './CardListController.js';
 
-angular.module('tec-demo.directives').directive('demoCardList', function(){
+angular.module('app-mmi').directive('demoCardList', function(){
 	return {
 		restrict:'E',
 		scope: {

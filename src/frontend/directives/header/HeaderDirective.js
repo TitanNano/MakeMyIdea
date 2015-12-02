@@ -1,4 +1,4 @@
-angular.module('tec-demo.directives').directive('demoHeader', function(){
+angular.module('app-mmi').directive('demoHeader', function(){
 	return {
 		restrict : 'E',
 		scope : {},

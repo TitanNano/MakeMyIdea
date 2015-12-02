@@ -3,7 +3,7 @@ import Card from 'prototypes/Card.js';
 import Logger from 'prototypes/Logger.js';
 import CardService from 'services/CardService.js'
 
-angular.module('tec-demo.directives').controller("EditorController", ['$scope', function($scope){
+angular.module('app-mmi').controller("EditorController", ['$scope', function($scope){
 
     /**
     * @inner

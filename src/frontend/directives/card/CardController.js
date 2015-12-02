@@ -1,6 +1,6 @@
 import CardService from 'services/CardService.js'
 
-angular.module('tec-demo.directives').controller("CardController", ['$scope', function($scope) {
+angular.module('app-mmi').controller("CardController", ['$scope', function($scope) {
 
     $scope.edit = function(card) {
 

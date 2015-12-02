@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-    <meta name="google-signin-client_id" content=" 1075540561942-vchi1ljb9a87it0c867894n3gla3jmcc.apps.googleusercontent.com ">
 	<title>Make My Idea</title>
 
     <link rel="stylesheet" type="text/css" href="stylesheets/angular/angular-material.min.css">
@@ -12,9 +11,9 @@
 	<script type="text/javascript" src="modules/loader.js"></script>
 </head>
 <body>
-	<div ng-app="tec-demo.directives" class="root">
+	<div ng-app="app-mmi" class="root">
 		<demo-header></demo-header>
-        <ng-view></ng-view>
+        <ng-view flex="grow" layout></ng-view>
 	</div>
 </body>
 </html>

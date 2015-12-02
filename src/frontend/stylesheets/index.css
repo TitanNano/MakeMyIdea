@@ -33,3 +33,11 @@ demo-card-list > div {
 	margin: 0 auto;
 	font-size: 2rem;
 }
+
+app-page-signin > div {
+    justify-content: center;
+}
+
+app-page-signin md-card {
+    align-self: center;
+}
