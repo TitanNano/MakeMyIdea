@@ -1,4 +1,4 @@
-angular.module('app-mmi', ['ngMaterial', 'ngRoute', 'ngAnimate', 'ui.bootstrap']);
+angular.module('app-mmi', ['ngMaterial', 'ngRoute', 'ngAnimate', 'ngTouch', 'angular-carousel']);
 
 require('../directives/header/HeaderDirective.js');
 require('../directives/card/CardDirective.js');
@@ -7,6 +7,6 @@ require('../directives/editor/EditorDirective.js');
 require('../directives/tecDemo/TecDemoDirective.js');
 require('../directives/signInPage/SignInPageDirective.js');
 require('../directives/signInPage/authButtonGoogle/AuthButtonGoogleDirective.js');
-require('../directives/launchPage/LaunchPageDirective.js');
 
 require('../directives/explorePage/ExplorePageDirective.js');
+require('../directives/homePage/HomePageDirective.js');

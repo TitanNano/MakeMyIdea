@@ -1,7 +1,6 @@
 import './angular.js';
-import 'libs/bootstrap/ui-bootstrap-tpls.min.js';
-import 'libs/gsap/TweenMax.min.js';
 import './directives.js';
+import '../libs/angular-carousel.min.js';
 
 angular.module('app-mmi')
 .config(function($mdThemingProvider, $routeProvider) {
@@ -34,12 +33,12 @@ angular.module('app-mmi')
         template : '<app-page-signin flex="grow" layout></app-page-sign-in>'
     })
 
-    .when('/launch', {
-        template: '<app-page-launch flex="grow" layout></app-page-launch>'
-    })
-
     .when('/explore', {
         template: '<app-page-explore flex="grow" layout></app-page-explore>'
+    })
+
+    .when('/home', {
+        template: '<app-page-home flex="grow" layout></app-page-home>'
     })
 
     .otherwise('/tec-demo');

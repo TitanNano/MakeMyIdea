@@ -1,8 +1,0 @@
-<div>
-<div class="col-xs-12" ng-if="progress !== 100">
-    <progressbar class="progress-striped" value="progress">{{progress | number:0}}%</progressbar>
-</div>
-<img ng-show="loaded" bg-image class="fullBg {{currentAnimation}}" ng-repeat="slide in slides"
-     ng-if="slideshow.isCurrentSlideIndex($index)"
-     ng-src="{{slide.src}}">
-</div>
