@@ -38,5 +38,9 @@ angular.module('app-mmi')
         template: '<app-page-launch flex="grow" layout></app-page-launch>'
     })
 
+    .when('/publish', {
+        template: '<app-page-publish flex="grow" layout></app-page-publish>'
+    })
+
     .otherwise('/tec-demo');
 });
