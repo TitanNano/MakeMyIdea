@@ -39,7 +39,7 @@ angular.module('app-mmi')
     })
 
     .when('/publish', {
-        template: '<app-page-publish flex="grow" layout></app-page-publish>'
+        template: '<app-page-publish flex="grow layout"></app-page-publish>'
     })
 
     .otherwise('/tec-demo');
