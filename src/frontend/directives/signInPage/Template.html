@@ -1,15 +1,18 @@
 <div layout="row" flex="grow">
-    <md-card class="md-padding" flex="none">
+    <md-card class="md-padding wide" flex="none">
         <md-card-title>
-            <md-card-title-text>
-                <span class="md-headline">
+            <md-card-title-text layout="column" layout-align="start center">
+                <span class="md-headline" flex="none">
                     Login / Register
+                </span>
+                <span class="md-subhead" flex="none">
+                    with
                 </span>
             </md-card-title-text>
         </md-card-title>
         <md-card-content>
             <app-auth-button-google></app-auth-button-google>
-            <md-button class="md-raised">GitHub</md-button>
+            <app-auth-button-github></app-auth-button-github>
         </md-card-content>
     </md-card>
 </div>

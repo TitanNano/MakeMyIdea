@@ -47,7 +47,7 @@ export var Make = function(object, prototype) {
 
     var m = function(...args){
         var make = prototype.make || prototype._make || function(){};
-
+ 
         make.apply(object, args);
 
         return object;

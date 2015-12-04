@@ -12,6 +12,9 @@ export default Make({
 		Controller._make.apply(this);
 	},
 
+    /**
+     * @param {ResponseHandler} response
+     */
 	request : function(request, response){
 		let controller = this;
 		let item = request.body;

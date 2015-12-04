@@ -28,6 +28,12 @@ db.catch(function(e){
 })
 
 let Interface =  {
+
+    /**
+     * @param {string} collection
+     * @param {Object} item
+     * @return {Promise<Object>}
+     */
 	saveItem : function(collection, item){
 		return db.then(db => {
 			return new Promise((success, failure) => {
@@ -51,6 +57,11 @@ let Interface =  {
 		});
 	},
 
+    /**
+     * @param {string} collection
+     * @param {Object} item
+     * @return {Promise<Object>}
+     */
     deleteItem : function(collection, item) {
         return db.then(db => {
 			return new Promise((success, failure) => {
@@ -68,14 +79,25 @@ let Interface =  {
 		});
     },
 
-	queryItems : function(collection, query, forceList) {
+    /**
+     * @param {string} collection
+     * @param {Object} query
+     * @param {boolean} [forceList]
+     * @return {Promise<Array|Object>}
+     */
+	queryItems : function(collection, query, forceList=false) {
 		return db.then(db => {
 			let p = new Promise((success, failure) => {
 				let list = [];
 				let cursor = db.collection(collection).find(query);
 
+                logger.log('looking for', query);
+
 				cursor.each((error, doc) => {
+                    logger.log(error, doc);
+
 					if (error) {
+                        logger.error(error);
 						failure(error);
 					} else if(doc === null) {
 						let result = ((list.length > 1 || forceList) ? list : list[0]);
@@ -95,16 +117,43 @@ let Interface =  {
 		});
 	},
 
+    /**
+     * @param {string} collection
+     * @param {string} objectId
+     * @return {Promise<Object>}
+     */
 	getItem : function(collection, objectId) {
 		let query = { _id : objectId };
 
 		return Interface.queryItems(collection, query);
 	},
 
+    /**
+     * @param {string} collection
+     * @return {Promise<Array>}
+     */
 	getCollection : function(collection) {
 		logger.log('fetching collection:', collection);
 		return Interface.queryItems(collection, null, true);
-	}
+	},
+
+    /**
+     * @param {string} collection
+     * @param {string[]} keys
+     * @param {Object} [config]
+     * @return {Promise}
+     */
+    setIndex : function(collection, keys, config={ unique : true }){
+        return db.then(db => {
+            let index = {};
+
+            keys.forEach(item => {
+                index[item] = 1;
+            });
+
+            db.collection(collection).createIndex(index, config);
+        });
+    }
 }
 
 export default Interface;

@@ -2,6 +2,9 @@ import { Make } from 'modules/make.js';
 import NetworkRequest from 'prototypes/NetworkRequest.js';
 import Logger from 'prototypes/Logger.js';
 
+/**
+ * @type {Logger}
+ */
 let logger = Make(Logger)('NetworkService');
 
 let NetworkService = {
@@ -55,7 +58,7 @@ let NetworkService = {
     */
     _buildApiUrl : function(version, resource){
         return this.host.then(host => {
-            return `http://${host}/api/v${version}/${resource}.json`;
+            return `http://${host}/api/v${version}/${resource}`;
         })
 
     },
@@ -66,9 +69,12 @@ let NetworkService = {
     * @param {string} resource
     * @param {Object} data
     * @return {Promise}
+    * @deprecated
     */
     apiCall : function(resource, data) {
         return this._buildApiUrl(1, resource).then(url => {
+            url += '.json';
+
             let p = this.fetch(url, data);
 
             logger.log('API call to ->', url);
@@ -85,6 +91,34 @@ let NetworkService = {
                         success(data);
                     }
                 });
+            });
+        });
+    },
+
+    /**
+     * Fetches an resouce from our REST API. Similar to apiCall but also accepts the method for the request.
+     *
+     * @param {string} resouce
+     * @param {string} method
+     * @param {Object} data
+     * @return {Promise<Object>}
+     */
+    resource : function({ resource, method='GET', data=null }){
+        let p = this._buildApiUrl(1, resource).then(url => {
+            logger.log('fetching REST resource from -> ', method, url);
+
+            return this.fetch(url, data, { method : method });
+        });
+
+        p.catch(error => logger.error(error));
+
+        return p.then(resource => {
+            return new Promise((success, failure) => {
+                if (resource.error) {
+                    failure(resource);
+                } else {
+                    success(resource);
+                }
             });
         });
     }

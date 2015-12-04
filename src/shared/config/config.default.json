@@ -7,5 +7,17 @@
     "server":{
         "host":"localhost",
         "port":3030
+    },
+    "authFlow" : {
+        "github" : {
+            "accessTokenUrl" : "https://github.com/login/oauth/access_token",
+            "authUrl" : "https://github.com/login/oauth/authorize",
+            "type" : "github",
+            "clientId" : "59b0a9d691c006819f63",
+            "clientSecret" : "181691e56977852b39bb13247a53cf8a3650cfbb"
+        }
+    },
+    "serverResponse" : {
+        "functionTemplate" : "../templates/function.html"
     }
 }

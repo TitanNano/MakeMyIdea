@@ -1,6 +1,7 @@
 import './angular.js';
-import './directives.js';
 import '../libs/angular-carousel.min.js';
+import './directives.js';
+import { Router } from 'modules/Router.js';
 
 angular.module('app-mmi')
 .config(function($mdThemingProvider, $routeProvider) {
@@ -24,26 +25,11 @@ angular.module('app-mmi')
       'default' : '50'
     });
 
-    $routeProvider
-    .when('/tec-demo', {
-        template : '<app-page-tec-demo></app-page-tec-demo>'
-    })
-
-    .when('/sign-in', {
-        template : '<app-page-signin flex="grow" layout></app-page-sign-in>'
-    })
-
-    .when('/explore', {
-        template: '<app-page-explore flex="grow" layout></app-page-explore>'
-    })
-
-    .when('/home', {
-        template: '<app-page-home flex="grow" layout></app-page-home>'
-    })
-
-    .when('/about-us', {
-        template : '<app-page-about-us flex="grow" layout></app-page-about-us>'
-    })
-
-    .otherwise('/tec-demo');
+    Router($routeProvider, {
+        '/tec-demo' : 'app-page-tec-demo',
+        '/sign-in' : 'app-page-signin',
+        '/explore' : 'app-page-explore',
+        '/home' : 'app-page-home',
+        '/about-us' : 'app-page-about-us'
+    }, '/home');
 });

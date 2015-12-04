@@ -10,6 +10,7 @@ import bodyParser from 'body-parser';
 import { Make, hasPrototype } from './make.js';
 import Controller from '../prototypes/controller.js';
 import ResponseHandler from '../prototypes/ResponseHandler.js';
+import AuthorizeManager from './AuthorizeManager.js';
 
 let app = Express();
 
@@ -28,13 +29,32 @@ let controller = function(controller){
 
 		let route = app.route(controller.route);
 
-		var handlePostGet = (request, response) => {
+		var handlePostGet = (request, response, next) => {
 			console.log('incomming request for', controller.route);
 			controller.request(request, Make(ResponseHandler)(response, controller.logger));
+
+            next();
 		};
+
+        if (controller.protected) {
+            app.use(controller.route, AuthorizeManager.request.bind(AuthorizeManager, true));
+        } else {
+            app.use(controller.route, AuthorizeManager.request.bind(AuthorizeManager, false));
+        }
 
 		route.post(handlePostGet);
 		route.get(handlePostGet);
+
+        ['get', 'post', 'put', 'delete'].forEach(method => {
+            if (controller[method]) {
+                console.log(controller.name, 'handles', method);
+
+                route[method]((request, response) => {
+                    console.log(`incomming ${method} request for`, controller.route);
+                    controller[method](request, Make(ResponseHandler)(response, controller.logger));
+                });
+            }
+        });
 
 		route.options((request, response) => {
 			console.log('incomming options request for', controller.route);

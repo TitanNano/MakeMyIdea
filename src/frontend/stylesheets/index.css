@@ -33,6 +33,10 @@ demo-card-list > div {
 	font-size: 2rem;
 }
 
+md-card, md-content {
+    color : #4a4343;
+}
+
 app-page-signin > div {
     justify-content: center;
 }
@@ -40,6 +44,11 @@ app-page-signin > div {
 app-page-signin md-card {
     align-self: center;
 }
+
+app-page-signin .md-padding.wide {
+    padding: 16px 6rem;
+}
+
 
 .full-width-div {
     position: absolute;
