@@ -8,3 +8,4 @@ require('../directives/tecDemo/TecDemoDirective.js');
 require('../directives/signInPage/SignInPageDirective.js');
 require('../directives/signInPage/authButtonGoogle/AuthButtonGoogleDirective.js');
 require('../directives/launchPage/LaunchPageDirective.js');
+require('../directives/aboutUs/AboutUsDirective.js');
