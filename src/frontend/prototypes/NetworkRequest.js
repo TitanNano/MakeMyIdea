@@ -35,7 +35,7 @@ let NetworkRequest = {
      * @private
      * @type {Object}
      */
-	_headers : {},
+	_headers : null,
 
     /**
      * @type {string}
@@ -63,6 +63,7 @@ let NetworkRequest = {
 	_make : function(url, { method='POST', type='json' }){
 		this.type = type;
 		this.method = method;
+        this._headers = {};
 		this.url = url;
 	},
 
@@ -90,6 +91,19 @@ let NetworkRequest = {
 		return this;
 	},
 
+    /**
+     * Sets a single header for this request.
+     *
+     * @param {string} key
+     * @param {string} value
+     * @return {NetworkRequest}
+     */
+    setHeader : function(key, value) {
+        this._headers[key] = value;
+
+        return this;
+    },
+
 	/**
 	 * This will actually create the network connection and initiate the request.
 	 *
@@ -99,7 +113,7 @@ let NetworkRequest = {
 		let self = this;
 		let xhr = new XMLHttpRequest();
 
-		if (this.method === 'GET') {
+		if (this.method === 'GET' && this._body) {
 			this.url += '?' + Object.keys(this._body).map(function(key){
 				return `${key}=${self._body[key]}`;
 			}).join('&');
@@ -113,7 +127,7 @@ let NetworkRequest = {
 					if (xhr.status === 200) {
 						let response = xhr.response;
 
-						if (xhr.getResponseHeader('Content-Type') == 'application/json' && typeof response  === 'string') {
+						if (xhr.getResponseHeader('Content-Type').indexOf('application/json') > -1 && typeof response  === 'string') {
 							response = JSON.parse(response);
 						}
 
@@ -130,11 +144,14 @@ let NetworkRequest = {
 		});
 
 		if (this.type === 'json') {
+            let body = this._body;
+
 			xhr.setRequestHeader('Content-Type', 'application/json');
 
-			let body = this._body;
-			body = stripHashKey(body);
-			body = JSON.stringify(body);
+            if (body){
+                body = stripHashKey(body);
+                body = JSON.stringify(body);
+            }
 
 			xhr.send(body);
 		} else {

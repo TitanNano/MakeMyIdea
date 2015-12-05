@@ -22,48 +22,52 @@ let OAuthCallbackController = Make({
         let { state, code } = request.query;
         let type = null;
 
-        this.logger.log(state, code);
+        if(state && code) {
+            Storage.queryItems('auth-flows', { flowNonce : state }).then(flow => {
+                type = flow.type;
 
-        Storage.queryItems('auth-flows', { flowNonce : state }).then(flow => {
+                return Config.get(
+                    `authFlow.${flow.type}.accessTokenUrl`,
+                    `authFlow.${flow.type}.clientId`,
+                    `authFlow.${flow.type}.clientSecret`
+                ).then(([url, client_id, client_secret]) => {
+                    /** @type {NetworkRequest} */
+                    let request = Make(NetworkRequest)(url, { ssl : true });
 
-            type = flow.type;
+                    return request.headers({
+                        'Accept' : 'application/json'
+                    }).body({
+                        client_id : client_id,
+                        client_secret : client_secret,
+                        state : flow.flowNonce,
+                        code : code
+                    }).send();
+                }).then(response => {
+                    flow.accessToken = response.access_token;
 
-            return Config.get(
-                `authFlow.${flow.type}.accessTokenUrl`,
-                `authFlow.${flow.type}.clientId`,
-                `authFlow.${flow.type}.clientSecret`
-            ).then(([url, client_id, client_secret]) => {
-                /** @type {NetworkRequest} */
-                let request = Make(NetworkRequest)(url, { ssl : true });
-
-                return request.headers({
-                    'Accept' : 'application/json'
-                }).body({
-                    client_id : client_id,
-                    client_secret : client_secret,
-                    state : flow.flowNonce,
-                    code : code
-                }).send();
-            }).then(response => {
-                this.logger.log(response);
-
-                flow.accessToken = response.access_token;
-
-                return Storage.saveItem('auth-flows', flow);
-            });
-        }).then(() => {
-            response.sendFunction(this.oAuthCallback, `'${type}'`);
-        }, error => this.logger.log('Storage error', error));
-
+                    return Storage.saveItem('auth-flows', flow);
+                });
+            }).then(() => {
+                response.sendFunction(this.oAuthCallback, `'${type}'`);
+            }, error => this.logger.log('Storage error', error));
+        } else {
+            response.sendFunction(this.oAuthCallback, "'none'");
+        }
     },
 
     oAuthCallback : function(window, type){
-        let query = window.location.search.substr(1);
+        let query = null;
+
+        if (type !== 'none') {
+            query = window.location.search.substr(1);
+        } else {
+            query = window.location.hash.substr(1);
+        }
 
         query = query.split('&').reduce((o, item) => {
             item = item.split('=');
 
-            return o[item[0]] = item[1], o;
+            return o[item[0]] = decodeURIComponent(item[1]), o;
         }, {});
 
         window.opener.postMessage({

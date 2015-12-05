@@ -1,6 +1,7 @@
 import { Make } from 'modules/make.js';
 import NetworkRequest from 'prototypes/NetworkRequest.js';
 import Logger from 'prototypes/Logger.js';
+import AuthenticationService from 'services/AuthenticationService.js';
 
 /**
  * @type {Logger}
@@ -24,8 +25,6 @@ let NetworkService = {
     * @return {Promise}
     */
     fetch : function(url, data, config={}) {
-        let self = this;
-
         if (!data && this._pending[url]) {
             return this._pending[url];
         }
@@ -39,9 +38,9 @@ let NetworkService = {
         let promise = request.send();
 
         promise.then(() => {
-            delete self._pending[url];
+            delete this._pending[url];
         }, () => {
-            delete self._pending[url];
+            delete this._pending[url];
         });
 
         this._pending[url] = promise;
@@ -121,6 +120,23 @@ let NetworkService = {
                 }
             });
         });
+    },
+
+    oauth2Request : function(url, token, data, config={}) {
+        let request = Make(NetworkRequest)(url, config);
+
+        logger.log(url, token, data);
+
+        request.body(data);
+        AuthenticationService.authenticate(request, AuthenticationService.OAUTH2, token);
+
+        logger.log('fetching external resource from -> ', config.method, url, request);
+
+        let p = request.send();
+
+        p.catch(error => logger.log(error));
+
+        return p;
     }
 };
 

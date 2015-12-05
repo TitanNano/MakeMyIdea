@@ -21,6 +21,11 @@ body {
     flex-direction: column;
 }
 
+[data-icon] {
+    vertical-align: middle;
+    margin: 0px 0.2em;
+}
+
 demo-card-list {
     display: block;
     flex: 1 1 auto;

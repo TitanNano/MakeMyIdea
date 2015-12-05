@@ -12,9 +12,19 @@
         "github" : {
             "accessTokenUrl" : "https://github.com/login/oauth/access_token",
             "authUrl" : "https://github.com/login/oauth/authorize",
-            "type" : "github",
             "clientId" : "59b0a9d691c006819f63",
-            "clientSecret" : "181691e56977852b39bb13247a53cf8a3650cfbb"
+            "clientSecret" : "181691e56977852b39bb13247a53cf8a3650cfbb",
+            "scope" : "user",
+            "redirectUrl" : "http://localhost:3030/oauth/callback.html",
+            "userResource" : "https://api.github.com/user"
+        },
+        "google" : {
+            "authUrl" : "https://accounts.google.com/o/oauth2/auth",
+            "validationUrl" : "https://www.googleapis.com/oauth2/v1/tokeninfo",
+            "scope" : "email profile",
+            "redirectUrl" : "http://localhost:3030/oauth/callback.html",
+            "clientId" : "1075540561942-vchi1ljb9a87it0c867894n3gla3jmcc.apps.googleusercontent.com",
+            "userResource" : "https://www.googleapis.com/plus/v1/people/me"
         }
     },
     "serverResponse" : {

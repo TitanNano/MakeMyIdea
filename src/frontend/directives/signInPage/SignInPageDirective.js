@@ -1,5 +1,6 @@
 import './authButtonGoogle/AuthButtonGoogleDirective.js';
 import './authButtonGithub/AuthButtonGithubDirective.js';
+import './authButton/AuthButtonDirective.js';
 
 
 angular.module('app-mmi').directive('appPageSignin', function(){

@@ -41,7 +41,7 @@ let Interface =  {
 
 				let key = item._id ? { _id : item._id } : item;
 
-                logger.log(key);
+                logger.log(item);
 
 				db.collection(collection).updateOne(key, item, {
 					upsert : true
@@ -94,8 +94,6 @@ let Interface =  {
                 logger.log('looking for', query);
 
 				cursor.each((error, doc) => {
-                    logger.log(error, doc);
-
 					if (error) {
                         logger.error(error);
 						failure(error);

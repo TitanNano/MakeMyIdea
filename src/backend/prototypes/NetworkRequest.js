@@ -115,6 +115,11 @@ let NetworkRequest = {
                     if (response.statusCode > 399) {
                         return failure(data);
                     }
+
+                    if (this.type === 'json') {
+                        data = JSON.parse(data);
+                    }
+                    
                     success(data);
                 });
             };
