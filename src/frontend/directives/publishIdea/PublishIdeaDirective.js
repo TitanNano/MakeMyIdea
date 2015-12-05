@@ -1,3 +1,5 @@
+import './selectCategory/SelectCategoryDirective.js';
+
 angular.module('app-mmi').directive('appPagePublish', function(){
 
     return {
