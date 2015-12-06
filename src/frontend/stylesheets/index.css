@@ -26,6 +26,10 @@ body {
     margin: 0px 0.2em;
 }
 
+ng-view {
+    overflow: auto;
+}
+
 demo-card-list {
     display: block;
     flex: 1 1 auto;
@@ -38,7 +42,7 @@ demo-card-list > div {
 	font-size: 2rem;
 }
 
-md-card, md-content {
+body, md-card, md-content {
     color : #4a4343;
 }
 
@@ -54,22 +58,18 @@ app-page-signin .md-padding.wide {
     padding: 16px 6rem;
 }
 
+md-tabs.raised md-tabs-wrapper {
+    box-shadow: 0 2px 4px -1px rgba(0,0,0,.2),
+                0 4px 5px 0 rgba(0,0,0,.14),
+                0 1px 10px 0 rgba(0,0,0,.12);
+}
+
+md-tabs-wrapper {
+    z-index: 10;
+}
 
 .full-width-div {
     position: absolute;
     width: 100%;
     left: 0;
 }
-
-.tabsdemoDynamicHeight md-content {
-  background-color: transparent !important;
- }
-.tabsdemoDynamicHeight md-content md-tabs {
-  background: white;
-  border: 5px solid black; }
-  .tabsdemoDynamicHeight md-content md-tabs md-tabs-wrapper {
-    background: white; }
-.tabsdemoDynamicHeight md-content h1:first-child {
-  margin-top: 200; }
-.carddemoBasicUsage .card-media {
-  background-color: #999999; }

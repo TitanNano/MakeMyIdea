@@ -3,27 +3,27 @@ import '../libs/angular-carousel.min.js';
 import './directives.js';
 import { Router } from 'modules/Router.js';
 
-angular.module('app-mmi')
-.config(function($mdThemingProvider, $routeProvider) {
-  $mdThemingProvider.theme('default')
-    .primaryPalette('blue-grey', {
-      'default': '600',
-      'hue-1': '200',
-      'hue-2': '400',
-      'hue-3': 'A100'
-    })
+angular.module('app-mmi').config(function($mdThemingProvider, $routeProvider) {
 
-    .accentPalette('orange', {
-      'default': '200'
-    })
+    $mdThemingProvider.theme('default')
+        .primaryPalette('blue-grey', {
+            'default': '600',
+            'hue-1': '200',
+            'hue-2': '400',
+            'hue-3': 'A100'
+        })
 
-    .warnPalette('red',{
-      'default': '800'
-    })
+        .accentPalette('orange', {
+            'default': '200'
+        })
 
-    .backgroundPalette('teal', {
-      'default' : '50'
-    });
+        .warnPalette('red',{
+            'default': '800'
+        })
+
+        .backgroundPalette('teal', {
+            'default' : '50'
+        });
 
     Router($routeProvider, {
         '/tec-demo' : 'app-page-tec-demo',
