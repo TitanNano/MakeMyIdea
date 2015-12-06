@@ -1,6 +1,6 @@
 require('./project/ProjectDirective.js');
 require('./projectList/ProjectListDirective.js');
-require('./sideFilter/SideFilterDirective.js');
+require('./filter/FilterDirective.js');
 
 angular.module('app-mmi').directive('appPageExplore', function(){
 	return {

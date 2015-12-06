@@ -1,7 +1,10 @@
+import './ProjectListController.js';
+
 angular.module('app-mmi').directive('projectList', function(){
 	return {
 		restrict : 'E',
 		scope : {},
-		templateUrl : './directives/explorePage/projectList/Template.html'
+		templateUrl : './directives/explorePage/projectList/Template.html',
+        controller: 'ProjectListController'
 	}
 })
