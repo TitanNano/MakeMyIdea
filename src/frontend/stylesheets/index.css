@@ -12,6 +12,7 @@ body {
 	position: absolute;
 	overflow: scroll;
 	background: #eeeeee;
+    font-size: 1.6rem;
 }
 
 .root {
@@ -54,7 +55,7 @@ app-page-signin md-card {
     align-self: center;
 }
 
-app-page-signin .md-padding.wide {
+.md-padding.wide {
     padding: 16px 6rem;
 }
 
@@ -66,6 +67,12 @@ md-tabs.raised md-tabs-wrapper {
 
 md-tabs-wrapper {
     z-index: 10;
+}
+
+md-toolbar h1 {
+    padding-right: 16px;
+    border-right: 0.1rem solid rgba(255, 255, 255, 0.55);
+    margin-right: 0.5rem;
 }
 
 .full-width-div {
