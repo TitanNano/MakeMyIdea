@@ -1,31 +1,17 @@
 <div class="md-subhead" layout="column" flex layout-padding>
     <md-input-container>
         <label>Search Projects</label>
-        <input ng-model="query" type="text" autofocus>
+        <input ng-model="searchQuery" type="text" ng-change="search()">
     </md-input-container>
+
     <md-input-container>
-        <label>Sotieren nach</label>
-        <md-select ng-model="sort">
-            <md-option>
-                neu
-            </md-option>
-            <md-option>
-                beliebt
+        <label>Sort by</label>
+        <md-select ng-model="sortQuery" ng-change="sort()">
+            <md-option ng-repeat="option in options">
+                {{option}}
             </md-option>
         </md-select>
     </md-input-container>
-    <md-input-container>
-        <label>Filter Tags</label>
-        <md-chips ng-model="placeholder" md-autocomplete-snap md-transform-chip="placeholder($chip)" md-require-match="false">
-            <md-autocomplete md-selected-item="placeholder" md-search-text="placeholder" md-items="placeholder in placeholder(placeholder)" md-item-text="placeholder">
-                <span md-highlight-text="placeholder">{{placeholder}} :: {{placeholder}</span>
-            </md-autocomplete>
-            <md-chip-template>
-                <span>
-                    <strong>{{placeholder}}</strong>
-                    <em>({{placeholder}})</em>
-                </span>
-            </md-chip-template>
-        </md-chips>
-    </md-input-container>
+
+    <md-chips ng-model="tagFilterQuery" ng-change="tagFilter()"></md-chips>
 </div>

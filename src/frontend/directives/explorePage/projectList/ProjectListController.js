@@ -1,6 +1,14 @@
+import ExploreFilterService from 'services/ExploreFilterService.js';
+
 angular.module('app-mmi').controller("ProjectListController", ['$scope', function($scope) {
 
-    $scope.projectList = [
+    ExploreFilterService.list.then(projectList => {
+        $scope.projectList = projectList;
+        $scope.apply;
+    });
+
+    /* Project Data Example
+    [
         {
             title : 'Idea1',
             categories:['cat1', 'cat2', 'cat3'],
@@ -23,5 +31,6 @@ angular.module('app-mmi').controller("ProjectListController", ['$scope', functio
             currentMembers:['Peter', 'Max']
         }
     ]
+    */
 
 }])
