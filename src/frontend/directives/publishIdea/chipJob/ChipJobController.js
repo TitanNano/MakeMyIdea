@@ -3,10 +3,9 @@ import Logger from 'prototypes/Logger.js';
 
 (function () {
   angular.module('app-mmi').controller('ChipJob', DemoCtrl);
-  function DemoCtrl ($timeout, $q) {
-    var self = this;
-    self.readonly = false;
+  function DemoCtrl ($scope) {
+    $scope.readonly = false;
     // Lists of fruit names and Vegetable objects
-    self.jobs = ['Apple', 'Banana', 'Orange'];
+    $scope.jobs = ['Web Developer', 'Java Developer', 'C# Developer', 'Web Designer', 'Storywriter', 'Character Designer', 'Front End Developer'];
   }
 })();
