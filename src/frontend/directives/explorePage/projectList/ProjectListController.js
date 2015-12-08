@@ -1,8 +1,13 @@
 import ExploreFilterService from 'services/ExploreFilterService.js';
+import { Make } from 'modules/make.js';
+import Logger from 'prototypes/Logger.js';
+
+let logger = Make(Logger)('ProjectListController');
 
 angular.module('app-mmi').controller("ProjectListController", ['$scope', function($scope) {
 
     ExploreFilterService.list.then(projectList => {
+        logger.log(projectList);
         $scope.projectList = projectList;
         $scope.apply;
     });

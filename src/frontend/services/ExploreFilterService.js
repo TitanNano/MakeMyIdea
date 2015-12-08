@@ -10,14 +10,14 @@ let ExploreFilterService = {
 
     get list(){
         if(!this._projectList){
-            this._execute();
+            this._execute().then();
         }
         return this._projectList;
     },
 
     filterQuery : {
         search:'',
-        sort:'',
+        sort:'new',
         tags:[]
     },
 
@@ -32,17 +32,17 @@ let ExploreFilterService = {
     },
 
     tagFilterQuery :function(query){
-        this.filterQuery.sort = query;
+        this.filterQuery.tags = query;
         this._execute();
     },
 
     _execute : function(){
         logger.log(this.filterQuery);
-        return this._projectList = Promise.resolve([]);
-        /*NetworkService.resource({resource:'projects', data:this.filterQuery}).then(projectList => {
+        NetworkService.resource({resource:'explore/projects', data:this.filterQuery}).then(projectList => {
                 this._projectList = projectList;
-                return this._projectList;
-            });*/
+                logger.log(this._projectList);
+                return Promise.resolve();
+            });
     }
 };
 

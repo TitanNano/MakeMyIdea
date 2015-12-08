@@ -13,5 +13,16 @@
         </md-select>
     </md-input-container>
 
-    <md-chips ng-model="tagFilterQuery" ng-change="tagFilter()"></md-chips>
+    <md-chips ng-model="tagFilterQuery" md-on-remove="tagFilter()"></md-chips>
+
+    <!--<md-chips ng-model="tags" md-autocomplete-snap md-require-match="requireMatch">
+        <md-autocomplete md-selected-item="selectedTag" md-search-text="searchTag" md-items="tag in querySearch(searchTag)" md-item-text="tag" placeholder="Search for a Tag">
+            <span md-highlight-text="searchTag">{{tag}}</span>
+        </md-autocomplete>
+        <md-chip-template>
+            <span>
+                <strong>{{$chip}}</strong>
+            </span>
+        </md-chip-template>
+    </md-chips>-->
 </div>
