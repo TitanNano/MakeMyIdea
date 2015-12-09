@@ -9,7 +9,7 @@ angular.module('app-mmi').controller("ProjectListController", ['$scope', functio
     ExploreFilterService.list.then(projectList => {
         logger.log(projectList);
         $scope.projectList = projectList;
-        $scope.apply;
+        $scope.$apply();
     });
 
     /* Project Data Example

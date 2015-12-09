@@ -10,7 +10,7 @@ let ExploreFilterService = {
 
     get list(){
         if(!this._projectList){
-            this._execute().then();
+            this._execute();
         }
         return this._projectList;
     },
@@ -38,11 +38,29 @@ let ExploreFilterService = {
 
     _execute : function(){
         logger.log(this.filterQuery);
-        NetworkService.resource({resource:'explore/projects', data:this.filterQuery}).then(projectList => {
-                this._projectList = projectList;
-                logger.log(this._projectList);
-                return Promise.resolve();
+        if(!this._projectList){
+            this._projectList = NetworkService.resource({resource:'projects', data:this.filterQuery});
+        }
+        else{
+            Promise.all([NetworkService.resource({resource:'projects', data:this.filterQuery}), this._projectList]).then(([newProjectList, oldProjectList]) => {
+                let toDelete = [];
+                oldProjectList.forEach(oldProject => {
+                    let index = newProjectList.findIndex(newProject => { return newProject._id === oldProject._id});
+                    logger.log('Index: ', index);
+                    if (index < 0){
+                        logger.log('Delete: ', oldProject);
+                        toDelete.push(oldProject);
+                    }
+                })
+                toDelete.forEach(item => {
+                    oldProjectList.splice(oldProjectList.indexOf(item), 1);
+                });
+                
+                logger.log(oldProjectList);
+                return oldProjectList;
             });
+        }
+
     }
 };
 

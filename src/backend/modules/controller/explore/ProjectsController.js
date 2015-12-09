@@ -6,15 +6,9 @@ let ExploreProjectsController = Make({
 
     name : 'ExploreProjectsController',
 
-    route : '/api/v1/explore/projects',
+    route : '/api/v1/projects/:id?',
 
     collection : 'projects',
-
-    _make : function(){
-        Controller._make.apply(this);
-
-        Storage.setIndex(this.collection, ['flowNonce']);
-    },
 
     get : function(request, response){
         this.logger.log(request.query);
@@ -29,7 +23,7 @@ let ExploreProjectsController = Make({
         }
 
 
-        return Storage.queryItems(this.collection, { title : searchQuery, categories : tagsQuery }).then(projects => {
+        return Storage.queryItems(this.collection, { title : searchQuery, categories : tagsQuery }, true).then(projects => {
             this.logger.log(projects);
             response.send(projects);
         });
