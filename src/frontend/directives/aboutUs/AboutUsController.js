@@ -1,5 +1,4 @@
 import UiService from 'services/UiService.js';
-import './TheMissionTab/TheMissionTabDirective.js'
 
 angular.module('app-mmi').controller("AboutUsController", ['$scope', function($scope) {
 
