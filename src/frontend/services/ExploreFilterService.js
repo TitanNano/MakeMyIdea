@@ -43,19 +43,25 @@ let ExploreFilterService = {
         }
         else{
             Promise.all([NetworkService.resource({resource:'projects', data:this.filterQuery}), this._projectList]).then(([newProjectList, oldProjectList]) => {
-                let toDelete = [];
+                let toDeleteOld = [];
+                let toDeleteNew = [];
                 oldProjectList.forEach(oldProject => {
                     let index = newProjectList.findIndex(newProject => { return newProject._id === oldProject._id});
-                    logger.log('Index: ', index);
                     if (index < 0){
-                        logger.log('Delete: ', oldProject);
-                        toDelete.push(oldProject);
+                        toDeleteOld.push(oldProject);
                     }
-                })
-                toDelete.forEach(item => {
-                    oldProjectList.splice(oldProjectList.indexOf(item), 1);
+                    else{
+                        toDeleteNew.push(newProjectList[index]);
+                    }
                 });
-                
+                toDeleteOld.forEach(itemOld => {
+                    oldProjectList.splice(oldProjectList.indexOf(itemOld), 1);
+                });
+                toDeleteNew.forEach(itemNew => {
+                    newProjectList.splice(newProjectList.indexOf(itemNew), 1);
+                });
+
+                oldProjectList = oldProjectList.concat(newProjectList)
                 logger.log(oldProjectList);
                 return oldProjectList;
             });
