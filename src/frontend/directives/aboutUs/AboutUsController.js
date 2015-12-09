@@ -8,15 +8,16 @@ angular.module('app-mmi').controller("AboutUsController", ['$scope', function($s
     $scope.tabList = [
         {
             title : 'The Mission',
-            content: '<app-the-mission-tab></app-the-mission-tab>'
+            url: './directives/aboutUs/content/mission.html'
+
         },
         {
             title : 'The Team',
-            content: '<app-the-team-tab></app-the-team-tab>'
+            url: './directives/aboutUs/content/team.html'
         },
         {
             title : 'The Imprint',
-            content: '<app-the-imprint-tab></app-the-imprint-tab>'
+            url: './directives/aboutUs/content/imprint.html'
         }
     ]
 

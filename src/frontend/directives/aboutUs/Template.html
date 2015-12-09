@@ -4,8 +4,7 @@
             <div layout layout-align="center start">
                 <div class="md-padding" flex="66">
                     <h1 class="md-display-2">{{tab.title}}</h1>
-                    <hr />
-                        <div> {{tab.content}}
+                        <div ng-include="tab.url">
                         </div>
                 </div>
             </div>
