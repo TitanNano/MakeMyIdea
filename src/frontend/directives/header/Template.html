@@ -2,10 +2,9 @@
 
 	<div class="md-toolbar-tools">
 		<h1>Make My Idea</h1>
-		<app-header-button ng-click="jump('/about-us')"></app-header-button>
+		<app-header-button ng-repeat="button in buttonlist" app-config="button"></app-header-button>
 		<span flex></span>
 		<md-button class="md-primary">Login / Register</md-button>
 	</div>
-
 
 </md-toolbar>
