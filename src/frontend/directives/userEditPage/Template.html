@@ -1,0 +1,32 @@
+<div layout layout-align="center start" flex="grow" class="md-padding">
+    <div flex="66">
+        <h1 class="md-display-2">Edit Profile</h1>
+        <md-card>
+            <md-card-content layout flex="grow">
+                <form layout="column" flex="grow">
+                    <md-input-container>
+                        <label for="firstName">First Name</label>
+                        <input type="text" name="firstName" ng-model="user.firstName">
+                    </md-input-container>
+                    <md-input-container>
+                        <label for="lastName">last Name</label>
+                        <input type="text" name="lastName" ng-model="user.lastName">
+                    </md-input-container>
+                    <md-input-container>
+                        <label for="email">E-Mail</label>
+                        <input type="text" name="email" ng-model="user.email">
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label for="description">Description</label>
+                        <textarea clas="md-background md-hue-1" name="description" columns="1" rows="5" md-maxlength="500" ng-model="user.description"></textarea>
+                    </md-input-container>
+                </form>
+                <img class="media" flex="none" ng-src="{{user.avatar}}">
+            </md-card-content>
+            <md-card-actions layout="row" layout-align="end center">
+                <md-button class="md-warn">cancel</md-button>
+                <md-button>save</md-button>
+            </md-card-actions>
+        </md-card>
+    </div>
+</div>

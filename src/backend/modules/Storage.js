@@ -32,24 +32,34 @@ let Interface =  {
     /**
      * @param {string} collection
      * @param {Object} item
+     * @param {string} [key]
      * @return {Promise<Object>}
      */
-	saveItem : function(collection, item){
+	saveItem : function(collection, item, key){
 		return db.then(db => {
 			return new Promise((success, failure) => {
-                item._id = ObjectId(item._id);
+                let query = null;
 
-				let key = item._id ? { _id : item._id } : item;
+                if (item._id) {
+                    item._id = ObjectId(item._id);
+                }
 
-                logger.log(item);
+                if (key) {
+                    query = {};
+                    query[key] = item[key];
+                } else {
+                    query = item._id ? { _id : item._id } : item;
+                }
 
-				db.collection(collection).updateOne(key, item, {
+                logger.log('save query', collection, item);
+
+				db.collection(collection).updateOne(query, item, {
 					upsert : true
 				}, (error, status) => {
 					if (error) {
 						failure(error);
 					} else {
-						console.log(status.result);
+						console.log(collection, status.result);
 						success(status.result);
 					}
 				});
@@ -62,16 +72,15 @@ let Interface =  {
      * @param {Object} item
      * @return {Promise<Object>}
      */
-    deleteItem : function(collection, item) {
+    deleteItem : function(collection, query) {
         return db.then(db => {
 			return new Promise((success, failure) => {
-                let key = item._id ? { _id : ObjectId(item._id) } : item;
-
-				db.collection(collection).remove(key, (error, status) => {
+                logger.log('delete query', collection, query);
+				db.collection(collection).remove(query, (error, status) => {
 					if (error) {
 						failure(error);
 					} else {
-						console.log(status.result);
+						logger.log(collection, status.result);
 						success(status.result);
 					}
 				});

@@ -24,7 +24,8 @@
             "scope" : "email profile",
             "redirectUrl" : "http://localhost:3030/oauth/callback.html",
             "clientId" : "1075540561942-vchi1ljb9a87it0c867894n3gla3jmcc.apps.googleusercontent.com",
-            "userResource" : "https://www.googleapis.com/plus/v1/people/me"
+            "userResource" : "https://www.googleapis.com/plus/v1/people/me",
+            "verifyUrl" : "https://www.googleapis.com/oauth2/v3/tokeninfo?access_token="
         }
     },
     "serverResponse" : {

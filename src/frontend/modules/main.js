@@ -1,9 +1,9 @@
 import './angular.js';
 import '../libs/angular-carousel.min.js';
 import './directives.js';
-import { Router } from 'modules/Router.js';
+import { Router, RouteController } from 'modules/Router.js';
 
-angular.module('app-mmi').config(function($mdThemingProvider, $routeProvider) {
+angular.module('app-mmi').config(function($routeProvider, $mdThemingProvider) {
 
     $mdThemingProvider.theme('default')
         .primaryPalette('blue-grey', {
@@ -22,14 +22,18 @@ angular.module('app-mmi').config(function($mdThemingProvider, $routeProvider) {
         })
 
         .backgroundPalette('teal', {
-            'default' : '50'
+            'default' : '50',
+            'hue-1' : '100'
         });
 
-    Router($routeProvider, {
-        '/tec-demo' : 'app-page-tec-demo',
-        '/sign-in' : 'app-page-signin',
-        '/explore' : 'app-page-explore',
-        '/home' : 'app-page-home',
-        '/about-us' : 'app-page-about-us'
-    }, '/home');
-});
+        Router($routeProvider, {
+            '/tec-demo' : 'app-page-tec-demo',
+            '/sign-in' : 'app-page-signin',
+            '/explore' : 'app-page-explore',
+            '/home' : 'app-page-home',
+            '/about-us' : 'app-page-about-us',
+            '/user/edit' : 'app-page-user-edit'
+        }, '/home');
+}).run(function($rootScope){
+    RouteController($rootScope);
+})

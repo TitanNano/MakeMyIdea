@@ -3,6 +3,7 @@ import TokenGenerator from 'prototypes/TokenGenerator.js';
 import NetworkService from 'services/NetworkService.js';
 import Logger from 'prototypes/Logger.js';
 import Config from 'modules/Config.js';
+import UserService from 'services/UserService.js';
 
 angular.module('app-mmi').controller('AuthButton', ['$scope', function($scope){
 
@@ -46,7 +47,8 @@ angular.module('app-mmi').controller('AuthButton', ['$scope', function($scope){
         return {
             email : email,
             firstName : firstName,
-            lastName : lastName
+            lastName : lastName,
+            login : user.login
         };
     }
 
@@ -103,12 +105,18 @@ angular.module('app-mmi').controller('AuthButton', ['$scope', function($scope){
             let onToken = response => {
                 logger.log(response);
 
-                NetworkService.oauth2Request(config.userResource, response.accessToken, null, { method : 'GET' }).then(user => {
-                    let newUser = processUser(user);
+                NetworkService.oauth2Request(config.userResource, response.accessToken, null, { method : 'GET' }).then(userInfo => {
+                    let user = processUser(userInfo);
 
-                    newUser.accessToken = response.accessToken;
+                    user.tokenData = {
+                        accessToken : response.accessToken,
+                        accessTokenType : $scope.type
+                    };
 
-                    logger.log(newUser);
+                    logger.log(user);
+                    UserService.signIn(user).then(() => {
+                        location.hash = '/user/edit';
+                    });
                 });
             };
 

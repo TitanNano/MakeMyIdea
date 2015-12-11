@@ -82,6 +82,19 @@ let NetworkRequest = {
 		return this;
 	},
 
+    /**
+     * Sets a single header for this request.
+     *
+     * @param {string} key
+     * @param {string} value
+     * @return {NetworkRequest}
+     */
+    setHeader : function(key, value) {
+        this._headers[key] = value;
+
+        return this;
+    },
+
 	/**
 	 * This will actually create the network connection and initiate the request.
 	 *
@@ -95,7 +108,7 @@ let NetworkRequest = {
 
         queryString = encodeURI(queryString);
 
-		if (this.method === 'GET') {
+		if (this.method === 'GET' && queryString.length > 0) {
 			this.url += '?' + queryString;
 		}
 
@@ -119,14 +132,14 @@ let NetworkRequest = {
                     if (this.type === 'json') {
                         data = JSON.parse(data);
                     }
-                    
+
                     success(data);
                 });
             };
 
             let url = Url.parse(this.url);
 
-            if (this.type == 'json') {
+            if (this.type == 'json' && this.method !== 'GET') {
                 this._headers['Content-Type'] = 'application/json';
             } else if (this.type == 'queryString' && this.method !== 'GET') {
                 this._headers['Content-Type'] = 'application/x-www-form-urlencoded';
@@ -135,10 +148,12 @@ let NetworkRequest = {
             let options = {
                 protocol : (this.ssl ? 'https:' : 'http:'),
                 host : url.host,
-                path : url.pathname,
+                path : url.path,
                 headers : this._headers,
                 method : this.method
             };
+
+            this.logger.log(options);
 
             let request = null;
 

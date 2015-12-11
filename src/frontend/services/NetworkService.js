@@ -31,6 +31,10 @@ let NetworkService = {
 
         let request = Make(NetworkRequest)(url, config);
 
+        if (config.authenticate) {
+            AuthenticationService.authenticate(request, AuthenticationService.MMI);
+        }
+
         if (data) {
             request.body(data);
         }
@@ -106,7 +110,7 @@ let NetworkService = {
         let p = this._buildApiUrl(1, resource).then(url => {
             logger.log('fetching REST resource from -> ', method, url);
 
-            return this.fetch(url, data, { method : method });
+            return this.fetch(url, data, { method : method, authenticate : true });
         });
 
         p.catch(error => logger.error(error));

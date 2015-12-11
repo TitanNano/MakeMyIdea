@@ -52,6 +52,11 @@ let NetworkRequest = {
      */
 	url : '',
 
+    /**
+     * @type {function[]}
+     */
+    _listeners : null,
+
 	/**
 	 * The constructor for the NetworkRequest. It simply sets up the properties.
 	 *
@@ -65,6 +70,7 @@ let NetworkRequest = {
 		this.method = method;
         this._headers = {};
 		this.url = url;
+        this._listeners = [];
 	},
 
 	/**
@@ -104,6 +110,13 @@ let NetworkRequest = {
         return this;
     },
 
+    /**
+     * @param {function} fn
+     */
+    onReady : function(fn){
+        this._listeners.push(fn);
+    },
+
 	/**
 	 * This will actually create the network connection and initiate the request.
 	 *
@@ -121,8 +134,8 @@ let NetworkRequest = {
 
 		xhr.open(this.method, this.url, true);
 
-		let promise = new Promise(function(success, failure){
-			xhr.onreadystatechange = function(){
+		let promise = new Promise((success, failure) => {
+			xhr.onreadystatechange = () => {
 				if (xhr.readyState === 4) {
 					if (xhr.status === 200) {
 						let response = xhr.response;
@@ -130,6 +143,8 @@ let NetworkRequest = {
 						if (xhr.getResponseHeader('Content-Type').indexOf('application/json') > -1 && typeof response  === 'string') {
 							response = JSON.parse(response);
 						}
+
+                        this._listeners.forEach(fn => fn(xhr));
 
 						success(response);
 					} else {

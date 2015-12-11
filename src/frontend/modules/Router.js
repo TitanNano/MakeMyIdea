@@ -1,3 +1,4 @@
+import UserService from 'services/UserService.js';
 
 /**
  * @param {Object} routes
@@ -12,4 +13,16 @@ export let Router = function($routeProvider, routes, otherwise) {
     $routeProvider.otherwise(otherwise);
 
     return otherwise;
+}
+
+export let RouteController = function($rootScope){
+    $rootScope.$on('$routeChangeStart', () => {
+
+        UserService.user.then(user => {
+            if (user.incomplete) {
+                location.hash = '/user/edit';
+            }
+        }, () => {});
+
+    });
 }

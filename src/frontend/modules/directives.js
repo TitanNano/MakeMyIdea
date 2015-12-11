@@ -10,3 +10,4 @@ require('../directives/signInPage/authButtonGoogle/AuthButtonGoogleDirective.js'
 require('../directives/explorePage/ExplorePageDirective.js');
 require('../directives/homePage/HomePageDirective.js');
 require('../directives/aboutUs/AboutUsDirective.js');
+require('../directives/userEditPage/userEditPageDirective.js');

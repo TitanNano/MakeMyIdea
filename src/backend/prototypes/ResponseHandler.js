@@ -106,6 +106,8 @@ let ResponseHandler = {
      */
     status : function(statusCode){
         this._response.sendStatus(statusCode);
+
+        return this;
     }
 }
 

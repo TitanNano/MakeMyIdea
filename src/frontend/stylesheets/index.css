@@ -75,8 +75,8 @@ md-toolbar h1 {
     margin-right: 0.5rem;
 }
 
-.full-width-div {
-    position: absolute;
-    width: 100%;
-    left: 0;
+app-page-user-edit .media {
+    height: 15rem;
+    width: 15rem;
+    margin-left: 1rem;
 }

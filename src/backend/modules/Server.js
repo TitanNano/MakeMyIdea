@@ -15,6 +15,8 @@ import AuthorizeManager from './AuthorizeManager.js';
 let app = Express();
 
 app.use(bodyParser.json());
+app.use(AuthorizeManager.request.bind(AuthorizeManager, true));
+
 
 let server = null;
 
@@ -35,12 +37,6 @@ let controller = function(controller){
 
             next();
 		};
-
-        if (controller.protected) {
-            app.use(controller.route, AuthorizeManager.request.bind(AuthorizeManager, true));
-        } else {
-            app.use(controller.route, AuthorizeManager.request.bind(AuthorizeManager, false));
-        }
 
 		route.post(handlePostGet);
 		route.get(handlePostGet);
