@@ -32,6 +32,7 @@ angular.module('app-mmi').config(function($routeProvider, $mdThemingProvider) {
             '/explore' : 'app-page-explore',
             '/home' : 'app-page-home',
             '/about-us' : 'app-page-about-us',
+            '/project' : 'app-page-project-page',
             '/user/edit' : 'app-page-user-edit'
         }, '/home');
 }).run(function($rootScope){
