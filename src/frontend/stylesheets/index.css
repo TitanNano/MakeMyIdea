@@ -41,13 +41,3 @@ app-page-signin > div {
 app-page-signin md-card {
     align-self: center;
 }
-
-app-page-publish md-input-container {
-	font-size: 2rem;
-}
-
-app-page-publish md-card {
-	height: auto;
-	width: 500px;
-	align-self: center;
-}
