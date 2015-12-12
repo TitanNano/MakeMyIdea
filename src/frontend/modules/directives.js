@@ -12,3 +12,4 @@ require('../directives/homePage/HomePageDirective.js');
 require('../directives/aboutUs/AboutUsDirective.js');
 require('../directives/userEditPage/userEditPageDirective.js');
 require('../directives/publishIdea/PublishIdeaDirective.js');
+require('../directives/projectPage/ProjectPageDirective.js');
