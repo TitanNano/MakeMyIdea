@@ -25,7 +25,7 @@ let EventTarget = {
      * Instantiates the _listeners array.
      */
     _make : function(){
-
+        this._listeners = {};
     },
 
     /**
@@ -35,7 +35,11 @@ let EventTarget = {
      * @param {function} fn - the function to call when this event fires
      */
     on : function(type, fn) {
+        if (typeof this._listeners[type] == 'undefined'){
+            this._listeners[type] = [];
+        }
 
+        this._listeners[type].push(fn);
     },
 
     /**
@@ -46,7 +50,12 @@ let EventTarget = {
      * @param {Object} data - any type of Object
      */
     emit : function(type, data){
-
+        if (this._listeners[type] instanceof Array){
+            var listeners = this._listeners[type];
+            listeners.forEach(listener => {
+                setTimeout(() => listener.apply(this, data), 0);
+            });
+        }
     }
 
 };
