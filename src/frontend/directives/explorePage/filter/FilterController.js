@@ -6,7 +6,7 @@ angular.module('app-mmi').controller("FilterController", ['$scope', function($sc
     var logger = Make(Logger)('FilterController');
     //let validTags = ['test','tester','testeroni'];
 
-    $scope.options = ["new","hot"];
+    $scope.options = ['new', 'hot'];
     $scope.tagFilterQuery = [];
 
     /*$scope.requireMatch = true;

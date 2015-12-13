@@ -14,16 +14,22 @@ let ExploreProjectsController = Make({
         this.logger.log(request.query);
 
         let { search } = request.query;
+        let { sort } = request.query
         let { tags } = request.query;
 
         let searchQuery = new RegExp(search, "i");
+
+        let sortQuery = { _id : -1 };
+        if (sort === 'hot'){
+            sortQuery = { views : 1 };
+        }
+
         let tagsQuery = { $exists : true, $ne : null };
         if (tags != ''){
             tagsQuery = { $all : tags.split(',') } ;
         }
 
-
-        return Storage.queryItems(this.collection, { title : searchQuery, categories : tagsQuery }, true).then(projects => {
+        return Storage.queryItems(this.collection, {$query: { title : searchQuery, categories : tagsQuery }, $orderby: sortQuery } , true).then(projects => {
             this.logger.log(projects);
             response.send(projects);
         });
