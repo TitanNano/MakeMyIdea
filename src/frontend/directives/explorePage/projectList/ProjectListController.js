@@ -12,6 +12,12 @@ angular.module('app-mmi').controller("ProjectListController", ['$scope', functio
         $scope.$apply();
     });
 
+    ExploreFilterService.on('projectsUpdate', function(newProjectList){        
+        $scope.projectList = newProjectList;
+        logger.log($scope.projectList);
+        $scope.$apply();
+    });
+
     /* Project Data Example
     [
         {

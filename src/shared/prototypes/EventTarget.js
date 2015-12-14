@@ -1,3 +1,7 @@
+import { Make } from 'modules/make.js';
+import Logger from 'prototypes/Logger.js';
+
+let logger = Make(Logger)('EventTarget');
 
 /**
  * @typedef Listener
@@ -40,6 +44,7 @@ let EventTarget = {
         }
 
         this._listeners[type].push(fn);
+        logger.log('New Listener: ', this._listeners)
     },
 
     /**
@@ -49,11 +54,12 @@ let EventTarget = {
      * @param {string} type - the type of event to emit
      * @param {Object} data - any type of Object
      */
-    emit : function(type, data){
+    emit : function(type, data=null){
+        logger.log('Listener call: ', type)
         if (this._listeners[type] instanceof Array){
             var listeners = this._listeners[type];
             listeners.forEach(listener => {
-                setTimeout(() => listener.apply(this, data), 0);
+                setTimeout(() => listener.apply(this, [data]), 0);
             });
         }
     }

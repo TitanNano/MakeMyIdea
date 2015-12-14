@@ -21,7 +21,7 @@ let ExploreProjectsController = Make({
 
         let sortQuery = { _id : -1 };
         if (sort === 'hot'){
-            sortQuery = { views : 1 };
+            sortQuery = { views : -1 };
         }
 
         let tagsQuery = { $exists : true, $ne : null };

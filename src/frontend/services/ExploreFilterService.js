@@ -1,10 +1,11 @@
 import { Make } from 'modules/make.js';
 import Logger from 'prototypes/Logger.js';
 import NetworkService from 'services/NetworkService.js';
+import EventTarget from 'prototypes/EventTarget.js';
 
 let logger = Make(Logger)('ExploreFilterService');
 
-let ExploreFilterService = {
+let ExploreFilterService = Make({
 
     _projectList : null,
 
@@ -62,12 +63,25 @@ let ExploreFilterService = {
                 });
 
                 oldProjectList = oldProjectList.concat(newProjectList)
+                if (this.filterQuery.sort === 'hot'){
+                    oldProjectList.sort(function (a, b) {
+                        if (a.views < b.views) {
+                            return 1;
+                        }
+                        if (a.views > b.views) {
+                            return -1;
+                        }
+                        // a must be equal to b
+                        return 0;
+                    });
+                }
                 logger.log(oldProjectList);
+                this.emit('projectsUpdate', oldProjectList);
                 return oldProjectList;
             });
         }
 
     }
-};
+}, EventTarget)();
 
 export default ExploreFilterService;
