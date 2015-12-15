@@ -33,9 +33,11 @@ let ExploreProjectsController = Make({
             this.logger.log(projects);
             response.send(projects);
         });
+    },
 
-        //return Promise.resolve([]);
-    }
+    post : function(request, response){
+
+    },
 
 }, Controller).get();
 
