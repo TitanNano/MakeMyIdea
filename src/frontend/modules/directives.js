@@ -1,4 +1,4 @@
-angular.module('app-mmi', ['ngMaterial', 'ngRoute', 'ngAnimate', 'ngTouch', 'angular-carousel']);
+ angular.module('app-mmi', ['ngMaterial', 'ngRoute', 'ngAnimate', 'ngTouch', 'angular-carousel']);
 
 require('../directives/header/HeaderDirective.js');
 require('../directives/card/CardDirective.js');

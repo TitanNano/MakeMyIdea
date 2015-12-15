@@ -32,7 +32,7 @@ let Interface =  {
     /**
      * @param {string} collection
      * @param {Object} item
-     * @param {string} [key]
+     * @param {string|Object} [key]
      * @return {Promise<Object>}
      */
 	saveItem : function(collection, item, key){
@@ -45,8 +45,13 @@ let Interface =  {
                 }
 
                 if (key) {
-                    query = {};
-                    query[key] = item[key];
+
+                    if (typeof key === 'object') {
+                        query = key;
+                    } else {
+                        query = {};
+                        query[key] = item[key];
+                    }
                 } else {
                     query = item._id ? { _id : item._id } : item;
                 }
@@ -130,7 +135,7 @@ let Interface =  {
      * @return {Promise<Object>}
      */
 	getItem : function(collection, objectId) {
-		let query = { _id : objectId };
+		let query = { _id : ObjectId(objectId) };
 
 		return Interface.queryItems(collection, query);
 	},
@@ -160,7 +165,9 @@ let Interface =  {
 
             db.collection(collection).createIndex(index, config);
         });
-    }
+    },
+
+    ObjectId : ObjectId
 }
 
 export default Interface;

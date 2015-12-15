@@ -20,8 +20,14 @@ let UserService = {
      */
     loadUser : function(id) {
         logger.log('loading user', id);
-        return this._currentUser = NetworkService.resource({ resource : `user/${id}`, method : 'GET' }).then(user => {
-            return Make(user, User).get();
+        return this._currentUser = NetworkService.resource({ resource : `users/${id}`, method : 'GET' }).then(user => {
+            user = Make(user, User).get();
+
+            if (user.incomplete) {
+                location.hash = '/user/edit';
+            }
+
+            return user;
         });
     },
 
@@ -32,6 +38,26 @@ let UserService = {
      */
     get user(){
         return this._currentUser;
+    },
+
+    save : function(user){
+        let saveUser = user => {
+            user.incomplete = false;
+
+            return NetworkService.resource({ resource : 'users/self', method : 'PUT', data : user });
+        }
+
+        let onFinish = user => {
+            this._currentUser = Promise.resolve(Make(user, user).get());
+
+            return user;
+        };
+
+        if (!user) {
+            return this._currentUser.then(saveUser).then(onFinish);
+        } else {
+            return saveUser(user).then(onFinish);
+        }
     },
 
     /**

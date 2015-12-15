@@ -44,7 +44,6 @@ let AuthorizeManager = {
         let token = request.header('Auth-Token');
         let clientNonce = request.header('Auth-Nonce');
 
-        logger.log('authorizing request...');
         request.authenticated = false;
 
         if (session) {

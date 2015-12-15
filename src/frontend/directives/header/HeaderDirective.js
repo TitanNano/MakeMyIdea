@@ -1,4 +1,5 @@
-import './headerButton/HeaderButtonDirective.js'
+import './headerButton/HeaderButtonDirective.js';
+import './HeaderUserArea/HeaderUserAreaDirective.js';
 import './HeaderController.js';
 
 angular.module('app-mmi').directive('demoHeader', function(){

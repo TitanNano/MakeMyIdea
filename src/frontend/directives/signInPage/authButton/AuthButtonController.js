@@ -5,7 +5,7 @@ import Logger from 'prototypes/Logger.js';
 import Config from 'modules/Config.js';
 import UserService from 'services/UserService.js';
 
-angular.module('app-mmi').controller('AuthButton', ['$scope', function($scope){
+angular.module('app-mmi').controller('AuthButton', ['$scope', '$mdDialog', function($scope, $mdDialog){
 
     /**
      * @param {Object} user
@@ -114,8 +114,12 @@ angular.module('app-mmi').controller('AuthButton', ['$scope', function($scope){
                     };
 
                     logger.log(user);
-                    UserService.signIn(user).then(() => {
-                        location.hash = '/user/edit';
+                    UserService.signIn(user).then(user => {
+                        $mdDialog.hide('finish it!');
+
+                        if (user.incomplete) {
+                            location.hash = '/user/edit';
+                        }
                     });
                 });
             };

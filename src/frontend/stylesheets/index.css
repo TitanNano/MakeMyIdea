@@ -75,6 +75,17 @@ md-toolbar h1 {
     margin-right: 0.5rem;
 }
 
+app-header-user-area img {
+    border-radius: 50%;
+    height: 2.5rem;
+    vertical-align: middle;
+    margin-left: 1rem;
+}
+
+app-header-user-area span {
+    vertical-align: middle;
+}
+
 app-page-user-edit .media {
     height: 15rem;
     width: 15rem;

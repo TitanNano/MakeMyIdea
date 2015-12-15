@@ -14,7 +14,7 @@
                     </md-input-container>
                     <md-input-container>
                         <label for="email">E-Mail</label>
-                        <input type="text" name="email" ng-model="user.email">
+                        <input disabled type="text" name="email" value="{{::user.email}}">
                     </md-input-container>
                     <md-input-container class="md-block">
                         <label for="description">Description</label>
@@ -24,8 +24,8 @@
                 <img class="media" flex="none" ng-src="{{user.avatar}}">
             </md-card-content>
             <md-card-actions layout="row" layout-align="end center">
-                <md-button class="md-warn">cancel</md-button>
-                <md-button>save</md-button>
+                <md-button ng-disabled="::user.incomplete" class="md-warn">cancel</md-button>
+                <md-button ng-click="saveUser()">save</md-button>
             </md-card-actions>
         </md-card>
     </div>

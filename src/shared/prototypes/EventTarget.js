@@ -27,10 +27,14 @@ let EventTarget = {
 
     /**
      * Instantiates the _listeners array.
+     * @constructs
      */
     _make : function(){
         this._listeners = {};
+        this._eventTypes = {};
     },
+
+    eventTypes : null,
 
     /**
      * Registers a new event listener for an specified event type.
@@ -41,6 +45,17 @@ let EventTarget = {
     on : function(type, fn) {
         if (typeof this._listeners[type] == 'undefined'){
             this._listeners[type] = [];
+        }
+
+        // enables presistent events / listeners get called even after a event has fired.
+        if (type in this._eventTypes) {
+            let config = this._eventTypes[type];
+
+            if (config.last) {
+                setTimeout(() => {
+                    fn.apply(this, [config.last]);
+                }, 0);
+            }
         }
 
         this._listeners[type].push(fn);
@@ -62,8 +77,28 @@ let EventTarget = {
                 setTimeout(() => listener.apply(this, [data]), 0);
             });
         }
-    }
 
+        // enables presistent events / listeners get called even after a event has fired.
+        if (type in this._eventTypes) {
+            let config = this._eventTypes[type];
+
+            if (config.presistent) {
+                config.last = data || true;
+            } else if (config.onlyOnce && !config.last) {
+                config.last = data || true;
+            }
+        }
+    },
+
+    /**
+     * Defines a new event type. This is only required if the event needs a certain configuration.
+     *
+     * @param {string} type
+     * @param {Object} config
+     */
+    defineEvent : function(type, config) {
+        this._eventTypes[type] = config;
+    }
 };
 
 export default EventTarget;

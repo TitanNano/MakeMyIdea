@@ -141,7 +141,7 @@ let NetworkRequest = {
 						let response = xhr.response;
 
 						if (xhr.getResponseHeader('Content-Type').indexOf('application/json') > -1 && typeof response  === 'string') {
-							response = JSON.parse(response);
+                            response = JSON.parse(response);
 						}
 
                         this._listeners.forEach(fn => fn(xhr));

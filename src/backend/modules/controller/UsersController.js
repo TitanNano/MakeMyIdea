@@ -41,6 +41,30 @@ let UsersController = Make({
         } else {
             response.status(401).send();
         }
+    },
+
+    put : function(request, response){
+        let { id } = request.params;
+
+        if (request.authenticated && id === 'self') {
+            let userData = request.body;
+            let { _id } = userData;
+
+            delete userData.email;
+            delete userData.session;
+            delete userData._id;
+
+            Storage.saveItem('users', { $set : userData }, { _id : Storage.ObjectId(_id) }).then(() => {
+                return Storage.getItem('users', _id);
+            }).then(user => {
+                this.logger.log(user);
+                response.send(user)
+            });
+        } else {
+            response.status(401).send({
+                error : 'unauthorized'
+            });
+        }
     }
 
 }, Controller).get();

@@ -19,6 +19,8 @@ let ResponseHandler = {
      */
 	logger : null,
 
+    _headers : null,
+
 	/**
 	 * The ResponseHandler takes care of sending the controlers response object properly.
 	 *
@@ -28,6 +30,7 @@ let ResponseHandler = {
 	_make : function(response, logger) {
 		this._response = response;
 		this.logger = logger;
+        this._headers = {};
 
 		//default headers
 		this.setHeaders({
@@ -43,7 +46,9 @@ let ResponseHandler = {
 	 * @param {Object} headers
 	 */
 	setHeaders : function(headers){
-		return this._response.set(headers);
+        Object.keys(headers).forEach(key => {
+            this._headers[key] = headers[key];
+        });
 	},
 
 	/**
@@ -53,6 +58,7 @@ let ResponseHandler = {
 	send : function(response) {
 		let data = JSON.stringify(response);
 
+        this._response.set(this._headers);
         this._response.type('json');
 		this._response.end(data);
 	},
@@ -105,7 +111,7 @@ let ResponseHandler = {
      * @param {number} statusCode
      */
     status : function(statusCode){
-        this._response.sendStatus(statusCode);
+        this._response.status(statusCode);
 
         return this;
     }
