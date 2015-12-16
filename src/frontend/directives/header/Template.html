@@ -1,10 +1,10 @@
 <md-toolbar ng-class="{ 'md-whiteframe-4dp': config.status == 'raised' }">
 
-	<div class="md-toolbar-tools">
-		<h1>Make My Idea</h1>
-		<app-header-button ng-repeat="button in buttonlist" app-config="button"></app-header-button>
-		<span flex></span>
+    <div class="md-toolbar-tools">
+        <h1><a href="#home">Make My Idea</a></h1>
+        <app-header-button ng-repeat="button in buttonlist" app-config="button"></app-header-button>
+        <span flex></span>
         <app-header-user-area></app-header-user-area>
-	</div>
+    </div>
 
 </md-toolbar>
