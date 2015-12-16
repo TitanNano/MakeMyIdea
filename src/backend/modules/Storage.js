@@ -89,6 +89,7 @@ let Interface =  {
     },
 
     /**
+     * @deprecated Use findItems
      * @param {string} collection
      * @param {Object} query
      * @param {boolean} [forceList]
@@ -101,6 +102,43 @@ let Interface =  {
 				let cursor = db.collection(collection).find(query);
 
                 logger.log('looking for', query);
+
+				cursor.each((error, doc) => {
+					if (error) {
+                        logger.error(error);
+						failure(error);
+					} else if(doc === null) {
+						let result = ((list.length > 1 || forceList) ? list : list[0]);
+
+						success(result);
+					} else {
+						list.push(doc);
+					}
+				});
+			});
+
+			p.catch(e => {
+				logger.error(e);
+			});
+
+			return p;
+		});
+	},
+
+    /**
+     * @param {string} collection
+     * @param {Object} find
+     * @param {Object} sort
+     * @param {boolean} [forceList]
+     * @return {Promise<Array|Object>}
+     */
+	findItems : function({ collection, find, sort={}, forceList=false }) {
+		return db.then(db => {
+			let p = new Promise((success, failure) => {
+				let list = [];
+				let cursor = db.collection(collection).find(find).sort(sort);
+
+                logger.log('looking for', find);
 
 				cursor.each((error, doc) => {
 					if (error) {

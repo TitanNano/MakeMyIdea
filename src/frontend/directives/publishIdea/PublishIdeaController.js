@@ -6,4 +6,8 @@ let logger = Make(Logger)('PublishIdeaController');
 
 angular.module('app-mmi').controller("PublishIdeaController", ['$scope', function($scope) {
 
+    $scope.create = function(){
+        logger.log($scope.project);
+        PublishIdeaService.publish($scope.project)
+    };
 }])

@@ -29,7 +29,7 @@ let ExploreProjectsController = Make({
             tagsQuery = { $all : tags.split(',') } ;
         }
 
-        return Storage.queryItems(this.collection, {$query: { title : searchQuery, categories : tagsQuery }, $orderby: sortQuery } , true).then(projects => {
+        return Storage.findItems({collection:this.collection, find: { title : searchQuery, categories : tagsQuery }, sort: sortQuery , forceList:true}).then(projects => {
             this.logger.log(projects);
             response.send(projects);
         });
@@ -37,6 +37,21 @@ let ExploreProjectsController = Make({
 
     post : function(request, response){
 
+        if (true) { //request.authenticated
+
+            let project = request.body;
+
+            Storage.saveItem(this.collection, project).then(status => {
+                if (status.upserted){
+                    project._id = status.upserted[0]._id;
+                }
+                
+                this.logger.log('Project: ', project);
+                response.send(project);
+            }, (error) => {
+                this.logger.error(error)
+            });
+        }
     },
 
 }, Controller).get();

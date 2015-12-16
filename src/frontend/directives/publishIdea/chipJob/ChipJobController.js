@@ -6,6 +6,6 @@ import Logger from 'prototypes/Logger.js';
   function DemoCtrl ($scope) {
     $scope.readonly = false;
     // Lists of fruit names and Vegetable objects
-    $scope.jobs = ['Web Developer', 'Java Developer', 'C# Developer', 'Web Designer', 'Storywriter', 'Character Designer', 'Front End Developer'];
+    $scope.categories = ['Web Developer', 'Java Developer', 'C# Developer', 'Web Designer', 'Storywriter', 'Character Designer', 'Front End Developer'];
   }
 })();
