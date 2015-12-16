@@ -1,7 +1,9 @@
 angular.module('app-mmi').directive('slide', function(){
 	return {
 		restrict : 'E',
-		scope : {},
+		scope : {
+            slide:'='
+        },
 		templateUrl : './directives/homePage/slide/Template.html'
 	}
 })

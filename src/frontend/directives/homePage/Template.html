@@ -1,13 +1,8 @@
 <div layout="column" flex>
-    <ul rn-carousel rn-carousel-index rn-carousel-auto-slide rn-carousel-transition="fadeAndSlide" rn-carousel-controls rn-carousel-controls-allow-loop flex>
-        <li>
-            <slide></slide>
-        </li>
-        <li>
-            <slide></slide>
-        </li>
-        <li>
-            <slide></slide>
+    <ul rn-carousel rn-carousel-index rn-carousel-auto-slide rn-carousel-transition="fadeAndSlide" flex>
+        <li ng-repeat="slide in slideList">
+            <slide slide="slide">
+            </slide>
         </li>
     </ul>
 </div>

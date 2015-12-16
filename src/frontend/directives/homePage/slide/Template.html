@@ -1,9 +1,9 @@
-<div ng-style="{'background-image': 'url(http://phandroid.s3.amazonaws.com/wp-content/uploads/2014/06/tools.jpg)'}" layout-fill flex layout="column" layout-align="center center">
+<div ng-style="{'background-image': 'url({{slide.imgurl}})'}" layout-fill flex layout="column" layout-align="center center">
         <h1 class="md-display-3" style="color:white">
-            Something about this Page
+            {{slide.title}}
         </h1>
         <p class="md-body-2" style="color:white; width:50%;">
-            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+            {{slide.content}}
         </p>
-        <md-button class="md-raised">Button</md-button>
+        <a href="#{{slide.buttonurl}}"><md-button class="md-raised">{{slide.buttontext}}</md-button></a>
 </div>
