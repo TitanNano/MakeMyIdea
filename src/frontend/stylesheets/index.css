@@ -91,3 +91,7 @@ app-page-user-edit .media {
     width: 15rem;
     margin-left: 1rem;
 }
+
+ul {
+    margin: 0;
+}
