@@ -53,7 +53,7 @@ let AuthorizeManager = {
             ]).then(([nonces, session]) => {
                 let correctToken = null;
 
-                if (nonces) {
+                if (nonces && session) {
                     correctToken = session.token[this._chooseToken(nonces, session.token.length)];
                 }
 

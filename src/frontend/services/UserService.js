@@ -48,7 +48,7 @@ let UserService = {
         }
 
         let onFinish = user => {
-            this._currentUser = Promise.resolve(Make(user, user).get());
+            this._currentUser = Promise.resolve(Make(user, User).get());
 
             return user;
         };

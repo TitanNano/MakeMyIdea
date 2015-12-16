@@ -2,27 +2,49 @@ import { Make } from './make.js';
 import { ConfigLoader } from './ConfigLoader.js'
 import Logger from '../prototypes/Logger.js';
 
+
+Object.prototype.allKeys = function(object) {
+    let list = [];
+
+    for (let key in object) {
+        list.push(key);
+    }
+
+    return list;
+}
+
+/**
+ * @param {string} str
+ * @see http://stackoverflow.com/a/6969486
+ * @author CoolAJ86
+ */
+let escapeRegExp = function(str) {
+  return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+}
+
 /** @type {Logger} */
 let logger = Make(Logger)('Config');
 
-let config = Promise.all([
-        ConfigLoader('./config/config.json'),
-        ConfigLoader('./config/config.default.json')
-    ]).then(values => {
-        let [config, configDefault] = values;
-        return Make(config, configDefault).get();
+let config = ConfigLoader().then(values => {
+        let config = {};
+
+        values.forEach(item => {
+            config = Make(item, config).get();
+        });
+
+        return config;
     });
 
 let Config = {
     getServerUrl : function(){
-        return config.then(config => {
-            return `${config.server.host}:${config.server.port}`;
+        return this.get('server').then(config => {
+            return `${config.host}:${config.port}`;
         })
     },
 
     getDbUrl : function(){
-        return config.then(config => {
-            return `mongodb://${config.db.host}:${config.db.port}/${config.db.name}`;
+        return this.get('db').then(config => {
+            return `mongodb://${config.host}:${config.port}/${config.name}`;
         })
     },
 
@@ -31,21 +53,26 @@ let Config = {
      * @return {Promise<*>}
      */
     get : function(...keys){
-
         return config.then(config => {
             let list = [];
 
             keys.forEach(key => {
-                let value = config;
-                logger.log(key);
+                if (config[key]) {
+                    list.push(config[key]);
+                } else {
+                    key = (key[key.length-1] !== '.') ? key + '.' : key;
+                    let value = {};
 
-                key = key.split('.');
+                    Object.allKeys(config).filter(item => {
+                        return item.search(`^(${escapeRegExp(key)})`) > -1;
+                    }).forEach(item => {
+                        value[item.replace(key, '')] = config[item];
+                    });
 
-                key.forEach(item => {
-                    value = value[item];
-                });
+                    value = (Object.keys(value).length > 1) ? value : value[Object.keys(value)[0]];
 
-                list.push(value);
+                    list.push(value);
+                }
             });
 
             return (list.length === 1) ? list[0] : list;

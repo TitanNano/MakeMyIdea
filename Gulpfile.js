@@ -20,7 +20,7 @@ gulp.task('copyBuildStage', function(){
 						.pipe(changed(distServer))
 						.pipe(gulp.dest(temp)),
 
-                    gulp.src('config.json')
+                    gulp.src(['config.json', 'config.server.json'])
 						.pipe(changed(distServer))
 						.pipe(gulp.dest(distServer + 'config/'))
                         .pipe(gulp.dest(distClient + 'config/')),

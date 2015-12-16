@@ -70,6 +70,8 @@ let AuthenticationService = Make(/** @lends AuthenticationService.prototype */{
     },
 
     /**
+     * Authorize a new session
+     *
      * @param {User} user
      * @return {Promise<User>}
      * @emits AuthenticationService#authorized
@@ -79,6 +81,8 @@ let AuthenticationService = Make(/** @lends AuthenticationService.prototype */{
             this._lastNonce = null;
             this._lastServerNonce = null;
             this._megaToken = null;
+            this.save();
+
             return NetworkService.resource({ resource : 'sessions', method : 'POST', data : {
                 email : user.email,
                 accessToken : user.tokenData.accessToken,
@@ -104,7 +108,7 @@ let AuthenticationService = Make(/** @lends AuthenticationService.prototype */{
             lastNonce : this._lastNonce
         };
 
-        localStorage.setItem('app-mmi.AuthenticationService', JSON.stringify(block));
+        sessionStorage.setItem('app-mmi.AuthenticationService', JSON.stringify(block));
     },
 
     /**
@@ -112,7 +116,7 @@ let AuthenticationService = Make(/** @lends AuthenticationService.prototype */{
      * @emits AuthenticationService#restored
      */
     load : function() {
-        let block = localStorage.getItem('app-mmi.AuthenticationService');
+        let block = sessionStorage.getItem('app-mmi.AuthenticationService');
 
         if (block) {
             try {
