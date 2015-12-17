@@ -1,4 +1,5 @@
 import './chipJob/ChipJobDirective.js'
+import './PublishIdeaController.js'
 
 angular.module('app-mmi').directive('appPagePublish', function(){
 
@@ -6,6 +7,7 @@ angular.module('app-mmi').directive('appPagePublish', function(){
         restrict:'E',
         scope: {},
 		templateUrl:'./directives/publishIdea/Template.html',
+        controller:'PublishIdeaController'
 	};
 
 });

@@ -4,7 +4,9 @@ angular.module('app-mmi').directive('appChipJob', function(){
 
     return {
         restrict:'E',
-        scope: {},
+        scope: {
+            categories : '=appCategories'
+        },
 		templateUrl:'./directives/publishIdea/chipJob/Template.html',
         controller : 'ChipJob'
 	};

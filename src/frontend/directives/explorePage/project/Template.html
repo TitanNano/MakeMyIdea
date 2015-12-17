@@ -1,15 +1,15 @@
 <md-card layout="column" style="width: 200px; height: 400px;">
-    <img src="http://placehold.it/1024x768?text={{project.title}}" class="md-card-image" alt="image caption" flex>
+    <img src="http://placehold.it/200x150?text={{project.title}}" class="md-card-image" alt="image caption" flex>
     <md-card-content flex style="padding:15px;">
-        <h1 class="md-subhead">
+        <h1 class="md-title">
             {{project.title}}
         </h1>
         <p class="md-caption">
             {{project.description}}
         </p>
     </md-card-content>
-    <md-card-footer flex layout="column" layout-align="center center" style="padding:15px;">
+    <!--<md-card-footer flex layout="column" layout-align="center center" style="padding:15px;">
         <p class="md-caption">{{project.currentMembers.length}}/{{project.neededMembers.length}} Creatores</p>
         <md-progress-linear md-mode="determinate" value="{{project.percent}}"></md-progress-linear>
-    </md-card-footer>
+    </md-card-footer>-->
 </md-card>
