@@ -5,7 +5,7 @@
             {{project.title}}
         </h1>
         <p class="md-caption">
-            {{project.description}}
+            {{project.description | limitTo:150 }}
         </p>
     </md-card-content>
     <!--<md-card-footer flex layout="column" layout-align="center center" style="padding:15px;">

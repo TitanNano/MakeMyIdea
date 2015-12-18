@@ -1,6 +1,6 @@
-import { Make } from '../../make.js';
-import Controller from '../../../prototypes/controller.js';
-import Storage from '../../Storage.js';
+import { Make } from '../make.js';
+import Controller from '../../prototypes/controller.js';
+import Storage from '../Storage.js';
 
 let ExploreProjectsController = Make({
 
@@ -22,7 +22,7 @@ let ExploreProjectsController = Make({
 
         let { search } = request.query;
         let { tags } = request.query;
-        
+
         let findQuery = {};
         if (search != ''){
             findQuery.title = new RegExp(search, "i");

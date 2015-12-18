@@ -1,23 +1,27 @@
 <div flex layout="row" layout-padding layout-align="center start">
     <div flex="66" layout="column">
-            <h1 class="md-display-3">Publish your project</h1>
-            <md-card>
-                <md-card-content layout="column">
-                    <md-input-container>
-                        <label>Name of Idea</label>
-                        <input type="text" ng-model="project.title" required md-maxlength="50">
-                    </md-input-container>
-                    <md-input-container>
-                        <label>Description</label>
-                        <textarea name="description" ng-model="project.description" rows="20" md-maxlength="500"></textarea>
-                    </md-input-container>
-                    <app-chip-job app-categories="project.categories"></app-chip-job>
-                </md-card-content>
-                <md-card-actions layout="row" layout-align="end center">
-                    <md-button class="md-primary" ng-click="create()">Create</md-button>
-                    <md-button class="md-warn">Cancel</md-button>
-                </md-card-actions>
-            </md-card>
-        </div>
+        <h1 class="md-display-3">Publish your project</h1>
+        <md-content>
+            <form name="projectForm" ng-submit="submit()" layout="column" layout-wrap layout-padding>
+                <md-input-container flex>
+                    <label>Project Title</label>
+                    <input name="title" ng-model="project.title" ng-required="true">
+                    <div ng-messages="projectForm.title.$error" ng-show="projectForm.title.$invalid && !projectForm.title.$pristine">
+                        <div ng-message="required">Project Title is required.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container flex>
+                    <label>Project Description</label>
+                    <textarea name="description" ng-model="project.description" ng-required="true"></textarea>
+                    <div ng-messages="projectForm.description.$error" ng-show="projectForm.description.$invalid && !projectForm.description.$pristine">
+                        <div ng-message="required">Project Description is required.</div>
+                    </div>
+                </md-input-container>
+                <div flex="100">
+                    <md-button type="button" ng-click="reset()">RESET</md-button>
+                    <md-button class="md-primary" ng-click="submit()" ng-disabled="projectForm.$invalid">SUBMIT</md-button>
+                </div>
+            </form>
+        </md-content>
     </div>
 </div>
