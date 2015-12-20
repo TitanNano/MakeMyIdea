@@ -17,6 +17,23 @@
                         <div ng-message="required">Project Description is required.</div>
                     </div>
                 </md-input-container>
+                <div data-ng-repeat="member in project.members" layout="row" layout-align="start stretch" layout-fill>
+                    <md-input-container flex="30">
+                        <label>Number of</label>
+                        <input type="number" step="1" min="1" ng-model="member.count" ="true">
+                    </md-input-container>
+                    <md-input-container flex="60">
+                        <label>Needed Member</label>
+                        <md-select ng-model="member.job" ng-required="true">
+                            <md-option data-ng-repeat="job in jobList" value="{{job}}">{{job}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-button class="md-icon-button md-warn" ng-show="$last" ng-click="removeChoice()" flex=>
+                        <md-icon>delete</md-icon>
+                    </md-button>
+                </div>
+                <md-button class="addfields" ng-click="addNewChoice()">Add Member</md-button>
+                <md-chips ng-model="project.categories" placeholder="+Tag" delete-button-label="Remove Tag" delete-hint="Press delete to remove Tag" secondary-placeholder="Enter a Tag"></md-chips>
                 <div flex="100">
                     <md-button type="button" ng-click="reset()">RESET</md-button>
                     <md-button class="md-primary" ng-click="submit()" ng-disabled="projectForm.$invalid">SUBMIT</md-button>
