@@ -11,7 +11,8 @@ let PublishIdeaService = {
         return NetworkService.resource({ resource : 'projects', method : 'POST', data : {
             title : idea.title,
             description : idea.description,
-            categories : idea.categories
+            categories : idea.categories,
+            members : idea.members
         }})
     }
 };
