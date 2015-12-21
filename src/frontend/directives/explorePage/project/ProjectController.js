@@ -3,7 +3,7 @@ angular.module('app-mmi').controller("ProjectController", ['$scope', function($s
     $scope.currentMembers = function(){
         let count = 0;
         $scope.project.members.forEach(item => {
-            count += item.current.length
+            count += item.users.length
         })
         return count
     }
