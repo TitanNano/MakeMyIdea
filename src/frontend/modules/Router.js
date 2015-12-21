@@ -1,15 +1,16 @@
 import UserService from 'services/UserService.js';
+var routelist;
 
 /**
  * @param {Object} routes
  */
 export let Router = function($routeProvider, routes, otherwise) {
-    Object.keys(routes).forEach(key => {
-        $routeProvider.when(key, {
-            template : `<${routes[key]} flex="grow" layout></${routes[key]}>`
+    routes.forEach(key => {
+        $routeProvider.when(key.route, {
+            template : `<${key.directive} flex="grow" layout></${key.directive}>`
         });
     });
-
+    routelist = routes;
     $routeProvider.otherwise(otherwise);
 
     return otherwise;
@@ -25,4 +26,8 @@ export let RouteController = function($rootScope){
         }, () => {});
 
     });
+}
+
+export let RouteListener = function(){
+  return routelist;
 }

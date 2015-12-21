@@ -1,6 +1,6 @@
 angular.module('app-mmi').controller('HeaderButtonController', ['$scope', '$location',function($scope, $location){
     $scope.jump = function () {
-      $location.path( $scope.config.path );
+      $location.path( $scope.config.route );
       console.log("Success");
     };
 

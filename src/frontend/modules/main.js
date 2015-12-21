@@ -26,17 +26,16 @@ angular.module('app-mmi').config(function($routeProvider, $mdThemingProvider) {
             'hue-1' : '100'
         });
 
-        Router($routeProvider, {
-            '/tec-demo' : 'app-page-tec-demo',
-            '/sign-in' : 'app-page-signin',
-            '/explore' : 'app-page-explore',
-            '/home' : 'app-page-home',
-            '/about-us' : 'app-page-about-us',
-            '/user/edit' : 'app-page-user-edit',
-            '/publish' : 'app-page-publish',
-            '/project' : 'app-page-project-page'
+        Router($routeProvider, [{route: 'tec-demo', directive: 'app-page-tec-demo'},
+                  {route: '/sign-in', directive: 'app-page-signin'},
+                  {route: '/explore', directive: 'app-page-explore', header: true, title: 'Explore'},
+                  {route: '/home', directive: 'app-page-home'},
+                  {route: '/publish', directive: 'app-page-publish', header: true, title: 'Publish Idea'},
+                  {route: '/about-us', directive: 'app-page-about-us', header: true, title: 'About us'},
+                  {route: '/user/edit', directive: 'app-page-user-edit'},
+                  {route: '/project', directive: 'app-page-project-page'}]
+                  , '/home');
 
-        }, '/home');
 }).run(function($rootScope){
     RouteController($rootScope);
 })
