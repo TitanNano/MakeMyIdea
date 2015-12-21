@@ -1,44 +1,51 @@
 <div flex layout="row" layout-padding layout-align="center start">
     <div flex="66" layout="column">
-        <h1 class="md-display-3">Publish your project</h1>
-        <md-content>
-            <form name="projectForm" ng-submit="submit()" layout="column" layout-wrap layout-padding>
-                <md-input-container flex>
-                    <label>Project Title</label>
-                    <input name="title" ng-model="project.title" ng-required="true">
-                    <div ng-messages="projectForm.title.$error" ng-show="projectForm.title.$invalid && !projectForm.title.$pristine">
-                        <div ng-message="required">Project Title is required.</div>
-                    </div>
-                </md-input-container>
-                <md-input-container flex>
-                    <label>Project Description</label>
-                    <textarea name="description" ng-model="project.description" ng-required="true"></textarea>
-                    <div ng-messages="projectForm.description.$error" ng-show="projectForm.description.$invalid && !projectForm.description.$pristine">
-                        <div ng-message="required">Project Description is required.</div>
-                    </div>
-                </md-input-container>
-                <div data-ng-repeat="member in project.members" layout="row" layout-align="start stretch" layout-fill>
-                    <md-input-container flex="30">
-                        <label>Number of</label>
-                        <input type="number" step="1" min="1" ng-model="member.count" ="true">
+        <h1 class="md-display-3">Publish your Project</h1>
+        <md-card>
+            <md-card-content>
+                <form name="projectForm" ng-submit="submit()" layout="column" layout-wrap layout-padding>
+                    <md-input-container flex>
+                        <label>Project Title</label>
+                        <input name="title" ng-model="project.title" ng-required="true">
+                        <div ng-messages="projectForm.title.$error" ng-show="projectForm.title.$invalid && !projectForm.title.$pristine">
+                            <div ng-message="required">Project Title is required.</div>
+                        </div>
                     </md-input-container>
-                    <md-input-container flex="60">
-                        <label>Needed Member</label>
-                        <md-select ng-model="member.job" ng-required="true">
-                            <md-option data-ng-repeat="job in jobList" value="{{job}}">{{job}}</md-option>
-                        </md-select>
+                    <md-input-container flex>
+                        <label>Project Description</label>
+                        <textarea name="description" ng-model="project.description" ng-required="true"></textarea>
+                        <div ng-messages="projectForm.description.$error" ng-show="projectForm.description.$invalid && !projectForm.description.$pristine">
+                            <div ng-message="required">Project Description is required.</div>
+                        </div>
                     </md-input-container>
-                    <md-button class="md-icon-button md-warn" ng-show="$last" ng-click="removeChoice()" flex=>
-                        <md-icon>delete</md-icon>
-                    </md-button>
-                </div>
-                <md-button class="addfields" ng-click="addNewChoice()">Add Member</md-button>
-                <md-chips ng-model="project.categories" placeholder="+Tag" delete-button-label="Remove Tag" delete-hint="Press delete to remove Tag" secondary-placeholder="Enter a Tag"></md-chips>
-                <div flex="100">
-                    <md-button type="button" ng-click="reset()">RESET</md-button>
-                    <md-button class="md-primary" ng-click="submit()" ng-disabled="projectForm.$invalid">SUBMIT</md-button>
-                </div>
-            </form>
-        </md-content>
+
+                    <div ng-repeat="member in project.members" layout="row" layout-align="start stretch" layout-fill>
+                        <md-input-container flex="30">
+                            <label>Amount</label>
+                            <input type="number" step="1" min="1" ng-model="member.count" ng-required="true">
+                        </md-input-container>
+                        <md-input-container flex>
+                            <label>Member Type</label>
+                            <md-select ng-model="member.job" ng-required="true">
+                                <md-option ng-repeat="job in jobList" value="{{job}}">{{job}}</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-button class="md-icon-button md-warn" ng-disabled="project.members.length < 2" ng-click="removeChoice()">
+                            <md-icon ng-if="project.members.length > 1">delete</md-icon>
+                        </md-button>
+                    </div>
+
+                    <div>
+                        <md-button class="md-raised addfields" ng-click="addNewChoice()" flex="none">Add Member</md-button>
+                    </div>
+
+                    <md-chips ng-model="project.categories" placeholder="+Tag" delete-button-label="Remove Tag" delete-hint="Press delete to remove Tag" secondary-placeholder="Enter a Tag"></md-chips>
+                    <div flex="100" layout layout-align="end">
+                        <md-button class="md-warn" type="button" ng-click="reset()">Reset</md-button>
+                        <md-button class="md-primary" ng-click="submit()" ng-disabled="projectForm.$invalid">Publish</md-button>
+                    </div>
+                </form>
+            </md-card-content>
+        </md-card>
     </div>
 </div>

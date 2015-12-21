@@ -1,4 +1,3 @@
-import './chipJob/ChipJobDirective.js'
 import './PublishIdeaController.js'
 
 angular.module('app-mmi').directive('appPagePublish', function(){
