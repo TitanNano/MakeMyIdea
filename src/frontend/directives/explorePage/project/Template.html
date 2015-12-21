@@ -8,8 +8,8 @@
             {{project.description | limitTo:150 }}
         </p>
     </md-card-content>
-    <!--<md-card-footer flex layout="column" layout-align="center center" style="padding:15px;">
-        <p class="md-caption">{{project.currentMembers.length}}/{{project.neededMembers.length}} Creatores</p>
-        <md-progress-linear md-mode="determinate" value="{{project.percent}}"></md-progress-linear>
-    </md-card-footer>-->
+    <md-card-footer flex layout="column" layout-align="center center" style="padding:15px;">
+        <p class="md-caption">{{currentMembers()}}/{{neededMembers()}} Creatores</p>
+        <md-progress-linear md-mode="determinate" value="{{percentMembers}}"></md-progress-linear>
+    </md-card-footer>
 </md-card>
