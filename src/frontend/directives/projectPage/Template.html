@@ -1,83 +1,44 @@
-<div layout="row" layout-sm="column">
-<div flex="75">
-<md-card>
-    <md-card-title>
-          <md-card-title-text>
-            <span class="md-headline">STU-PLA</span>
-            <span class="md-subhead">Ein funktionierender SRH Stundenplan</span>
-          </md-card-title-text>
-          <md-card-title-media >
-            <div class="md-media-lg card-media">
-                <img src="./directives/aboutUs/res/person.png">
-            </div>
-          </md-card-title-media>
-        </md-card-title>
-</md-card>
 
-<md-card>
-  <md-content flex layout-padding>
-    <p>Kennt ihr das nicht alle? Der Stundenplan ist mal wieder vollkommen daneben, keiner weis irgendetwas, im Sekretariat wird man nur mit fragenden Blicken angesehen. Wenn ihr mit mir fühlt lest weiter!</p>
-    <p>
-        Facete delenit argumentum cum at. Pro rebum nostrum contentiones ad. Mel exerci tritani maiorum at, mea te audire phaedrum, mel et nibh aliquam. Malis causae equidem vel eu. Noster melius vis ea, duis alterum oporteat ea sea. Per cu vide munere fierent.
-    </p>
-    <p>
-        Ad sea dolor accusata consequuntur. Sit facete convenire reprehendunt et. Usu cu nonumy dissentiet, mei choro omnes fuisset ad. Te qui docendi accusam efficiantur, doming noster prodesset eam ei. In vel posse movet, ut convenire referrentur eum, ceteros singulis intellegam eu sit.
-    </p>
-    <p>
-        Sit saepe quaestio reprimique id, duo no congue nominati, cum id nobis facilisi. No est laoreet dissentias, idque consectetuer eam id. Clita possim assueverit cu his, solum virtute recteque et cum. Vel cu luptatum signiferumque, mel eu brute nostro senserit. Blandit euripidis consequat ex mei, atqui torquatos id cum, meliore luptatum ut usu. Cu zril perpetua gubergren pri. Accusamus rationibus instructior ei pro, eu nullam principes qui, reque justo omnes et quo.
-    </p>
-  </md-content>
-</md-card>
+<md-progress-circular class="primary" md-mode="indeterminate" ng-show="!project"></md-progress-circular>
 
+<div layout="row" layout-sm="column" ng-hide="!project" flex>
+    <div flex="25"></div>
+    <div flex="50">
+        <md-card>
+            <img ng-src="http://placehold.it/200x100?text=Test" class="md-card-image" alt="Washed Out" width="100%">
+            <div layout layout-align="end" class="fab">
+                <md-button class="md-fab md-accent md-whiteframe-10dp" aria-label="Apply" ng-disabled="!user">
+                    <md-tooltip>
+                        Apply For Project
+                    </md-tooltip>
+                    <md-icon class="white">assignment ind</md-icon>
+                </md-button>
+            </div>
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">{{project.title}}</span>
+                </md-card-title-text>
+            </md-card-title>
 
-</div>
+            <md-content class="md-padding" flex ng-bind-html="project.description">
+            </md-content>
 
-<div flex="25">
-    <md-card>
-    	<md-card-content>
-    		<h2 class="md-title">Contributors</h2>
-            <div layout="row" layout-xs="column">
-                <div flex>
-    			JavaScript Entwickler
-                </div>
-                <div align="right" flex>
-                        5/6
-                </div>
-            </div>
-            <div layout="row" layout-xs="column">
-                <div flex>
-    			Inder
-                </div>
-                <div align="right" flex>
-                        2/4.516
-                </div>
-            </div>
-            <div layout="row" layout-xs="column">
-                <div flex>
-    			Sekretärin
-                </div>
-                <div align="right" flex>
-                        1/2
-                </div>
-            </div>
-    	</md-card-content>
-    	<md-card-actions layout="row" layout-align="end center">
-        <md-button ng-disabled="editing" ng-click="edit(card)">Bewerben!</md-button>
-    	</md-card-actions>
-    </md-card>
-    <md-card>
-    	<md-card-content>
-    		<h2 class="md-title">Social Media Links</h2>
-            <a href="https://github.com/TitanNano/MakeMyIdea"><p>
-    			GitHub
-    		</p></a>
-            <a href="https://www.facebook.com/"><p>
-                Facebook
-            </p></a>
-            <a href="https://www.twitter.com"><p>
-                Twitter
-            </p></a>
-    	</md-card-content>
-    </md-card>
-</div>
+            <md-chips ng-model="project.tags" readonly="true"></md-chips>
+        </md-card>
+    </div>
+
+    <div class="right" flex="25" layout="column" layout-align="start stretch">
+        <md-card>
+            <md-subheader>Contributors</md-subheader>
+
+            <md-list>
+                <md-list-item class="md-2-line" ng-repeat="member in project.members">
+                    <div class="md-list-item-text">
+                        <h3>{{member.type}}</h3>
+                        <p>{{member.users.length}} of {{member.count}} participating</p>
+                    </div>
+                </md-list-item>
+            </md-list>
+        </md-card>
+    </div>
 </div>

@@ -2,6 +2,7 @@ import { Make } from 'modules/make.js';
 import Logger from 'prototypes/Logger.js';
 import NetworkService from 'services/NetworkService.js';
 import EventTarget from 'prototypes/EventTarget.js';
+import Project from 'prototypes/Project.js';
 
 let logger = Make(Logger)('ExploreFilterService');
 
@@ -39,10 +40,11 @@ let ExploreFilterService = Make({
 
     _execute : function(){
         logger.log(this.filterQuery);
-        if(!this._projectList){
-            this._projectList = NetworkService.resource({resource:'projects', data:this.filterQuery});
-        }
-        else{
+        if (!this._projectList) {
+            this._projectList = NetworkService.resource({resource:'projects', data:this.filterQuery}).then(projectList => {
+                return projectList.map(project => Make(project, Project).get());
+            });
+        } else {
             Promise.all([NetworkService.resource({resource:'projects', data:this.filterQuery}), this._projectList]).then(([newProjectList, oldProjectList]) => {
                 let toDeleteOld = [];
                 let toDeleteNew = [];
@@ -62,7 +64,7 @@ let ExploreFilterService = Make({
                     newProjectList.splice(newProjectList.indexOf(itemNew), 1);
                 });
 
-                oldProjectList = oldProjectList.concat(newProjectList)
+                oldProjectList = oldProjectList.concat(newProjectList.map(project => Make(project, Project).get()));
                 if (this.filterQuery.sort === 'hot'){
                     oldProjectList.sort(function (a, b) {
                         if (a.views < b.views) {

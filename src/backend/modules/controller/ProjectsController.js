@@ -11,30 +11,39 @@ let ExploreProjectsController = Make({
     collection : 'projects',
 
     get : function(request, response){
-        this.logger.log(request.query);
+        let { id } = request.params;
+        if (id) {
+            Storage.getItem(this.collection, id).then(project => {
+                this.logger.log('sending:', project);
 
-        let { sort } = request.query
+                response.send(project);
+            });
+        } else {
+            this.logger.log(request.query);
 
-        let sortQuery = { _id : -1 };
-        if (sort === 'hot'){
-            sortQuery = { views : -1 };
+            let { sort } = request.query
+
+            let sortQuery = { _id : -1 };
+            if (sort === 'hot'){
+                sortQuery = { views : -1 };
+            }
+
+            let { search } = request.query;
+            let { tags } = request.query;
+
+            let findQuery = {};
+            if (search != ''){
+                findQuery.title = new RegExp(search, "i");
+            }
+            if (tags != ''){
+                findQuery.categories = { $all : tags.split(',') } ;
+            }
+
+            return Storage.findItems({collection:this.collection, find: findQuery, sort: sortQuery , forceList:true}).then(projects => {
+                this.logger.log(projects);
+                response.send(projects);
+            });
         }
-
-        let { search } = request.query;
-        let { tags } = request.query;
-
-        let findQuery = {};
-        if (search != ''){
-            findQuery.title = new RegExp(search, "i");
-        }
-        if (tags != ''){
-            findQuery.categories = { $all : tags.split(',') } ;
-        }
-
-        return Storage.findItems({collection:this.collection, find: findQuery, sort: sortQuery , forceList:true}).then(projects => {
-            this.logger.log(projects);
-            response.send(projects);
-        });
     },
 
     post : function(request, response){

@@ -92,6 +92,30 @@ app-page-user-edit .media {
     margin-left: 1rem;
 }
 
+app-page-project-page .right {
+    margin: 0 1% 0 4%;
+}
+
+app-page-project-page .fab {
+    height: 0;
+}
+
+app-page-project-page .fab button {
+    transform: translateY(-50%);
+    margin: 0px 3rem 0px 0px;
+}
+
 ul {
     margin: 0;
+}
+
+app-page-explore-page app-project {
+    cursor: pointer;
+}
+
+md-progress-circular.primary {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }

@@ -16,9 +16,13 @@ gulp.task('clean', function() {
 });
 
 gulp.task('copyBuildStage', function(){
-	return es.merge(gulp.src(['src/**/*.*', '!src/shared/**/*.js'])
+	return es.merge(gulp.src(['src/backend/**/*.*'])
 						.pipe(changed(distServer))
-						.pipe(gulp.dest(temp)),
+						.pipe(gulp.dest(temp + 'backend/')),
+
+                    gulp.src(['src/frontend/**/*.*'])
+                        .pipe(changed(distClient))
+                        .pipe(gulp.dest(temp + 'frontend/')),
 
                     gulp.src(['config.json', 'config.server.json'])
 						.pipe(changed(distServer))
@@ -99,5 +103,5 @@ gulp.task('watch', ['default'], function(){
 })
 
 gulp.task('default', function(cb){
-	runSequence('clean', ['copyDependecies', 'clean:temp'], cb);
+	runSequence(['copyDependecies', 'clean:temp'], cb);
 });
