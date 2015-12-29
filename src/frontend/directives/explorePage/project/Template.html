@@ -1,15 +1,17 @@
-<md-card layout="column" style="width: 200px; height: 400px;">
-    <img src="http://placehold.it/200x150?text={{project.title}}" class="md-card-image" alt="image caption" flex>
-    <md-card-content flex style="padding:15px;">
-        <h1 class="md-title">
-            {{project.title}}
-        </h1>
-        <p class="md-caption">
-            {{project.description | limitTo:150 }}
-        </p>
-    </md-card-content>
-    <md-card-footer flex layout="column" layout-align="center center" style="padding:15px;">
-        <p class="md-caption">{{project.currentMembers()}}/{{project.neededMembers()}} Creators</p>
-        <md-progress-linear md-mode="determinate" value="{{project.percentMembers()}}"></md-progress-linear>
-    </md-card-footer>
-</md-card>
+<a class="no-style" ng-href="#/project/{{project._id}}">
+    <md-card layout="column" style="width: 200px; height: 400px;">
+        <img src="http://placehold.it/200x150?text={{project.title}}" class="md-card-image" alt="image caption" flex>
+        <md-card-content flex style="padding:15px;">
+            <h1 class="md-title">
+                {{project.title}}
+            </h1>
+            <p class="md-caption">
+                {{project.description | limitTo:150 }}
+            </p>
+        </md-card-content>
+        <md-card-footer flex layout="column" layout-align="center center" style="padding:15px;">
+            <p class="md-caption">{{project.currentMembers()}}/{{project.neededMembers()}} Creators</p>
+            <md-progress-linear md-mode="determinate" value="{{project.percentMembers()}}"></md-progress-linear>
+        </md-card-footer>
+    </md-card>
+</a>

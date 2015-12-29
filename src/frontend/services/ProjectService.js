@@ -7,12 +7,16 @@ let logger = Make(Logger)('PublishIdeaService');
 
 let ProjectService = {
 
+    _lastProject : null,
+
     /**
      * @param {Object} idea
      * @return {Promise<Project>}
      */
     createProject : function(idea){
-        logger.log('Idea: ', idea)
+        logger.log('Idea: ', idea);
+        this._lastProject = null;
+        
         return NetworkService.resource({ resource : 'projects', method : 'POST', data : {
             title : idea.title,
             description : idea.description,
@@ -21,9 +25,30 @@ let ProjectService = {
         }});
     },
 
-    getProject : function(id) {
-        return NetworkService.resource({ resource : `projects/${id}`, method : 'GET' })
+    saveProject : function(project){
+        this._lastProject = null;
+
+        return NetworkService.resource({ resource : 'projects', method : 'post', data : project });
+    },
+
+    fetchProject : function(id){
+        return this._lastProject = NetworkService
+            .resource({ resource : `projects/${id}`, method : 'GET' })
             .then(project => Make(project, Project).get());
+    },
+
+    getProject : function(id) {
+        if (this._lastProject) {
+            return this._lastProject.then(project => {
+                if (project._id == id) {
+                    return this._lastProject;
+                } else {
+                    return this.fetchProject(id);
+                }
+            });
+        } else {
+            return this.fetchProject(id);
+        }
     }
 };
 

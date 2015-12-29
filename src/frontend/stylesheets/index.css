@@ -119,3 +119,13 @@ md-progress-circular.primary {
     top: 50%;
     transform: translate(-50%, -50%);
 }
+
+a.no-style {
+    text-decoration: none;
+}
+
+.md-fab.primary-fab {
+    position: absolute;
+    right: 5rem;
+    bottom: 5rem;
+}

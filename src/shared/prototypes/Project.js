@@ -1,3 +1,5 @@
+import { Make } from '../modules/make.js';
+import Model from './Model.js';
 
 /**
  * @typedef MemberRecord
@@ -6,7 +8,7 @@
  * @property {string[]} users
  */
 
-let Project = {
+let Project = Make({
 
     /**
      * @type {string}
@@ -44,6 +46,6 @@ let Project = {
     percentMembers : function(){
         return this.currentMembers() / this.neededMembers() * 100;
     }
-};
+}, Model).get();
 
 export default Project;

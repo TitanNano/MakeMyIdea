@@ -12,6 +12,7 @@ let ExploreProjectsController = Make({
 
     get : function(request, response){
         let { id } = request.params;
+
         if (id) {
             Storage.getItem(this.collection, id).then(project => {
                 this.logger.log('sending:', project);
@@ -63,7 +64,7 @@ let ExploreProjectsController = Make({
                 this.logger.error(error)
             });
         }
-    },
+    }
 
 }, Controller).get();
 

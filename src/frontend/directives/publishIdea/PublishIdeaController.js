@@ -1,26 +1,46 @@
 import ProjectService from 'services/ProjectService.js';
-import { Make } from 'modules/make.js';
-import Logger from 'prototypes/Logger.js';
+//import { Make } from 'modules/make.js';
+//import Logger from 'prototypes/Logger.js';
 
-let logger = Make(Logger)('PublishIdeaController');
+//let logger = Make(Logger)('PublishIdeaController');
 
-angular.module('app-mmi').controller("PublishIdeaController", ['$scope', function($scope) {
+angular.module('app-mmi').controller("PublishIdeaController", ['$scope', '$routeParams', function($scope, $routeParams) {
+    let projectId = $routeParams.id;
 
     $scope.typeList = ['Web Developer', 'Java Developer', 'C# Developer', 'Web Designer', 'Storywriter', 'Character Designer', 'Front End Developer'];
 
-    $scope.project = {};
-    $scope.project.members = [{users:[]}];
-    $scope.project.categories = [];
+    $scope.project = {
+        categories : [],
+        members : [
+            {
+                users : []
+            }
+        ],
+    };
+
+    if (projectId) {
+        ProjectService.getProject(projectId).then(project => {
+            $scope.project = project.clone();
+            $scope.$apply();
+        }, () => {
+            location.href = '/home';
+        });
+    }
 
     $scope.submit = function(){
-        logger.log($scope.project);
-        ProjectService.createProject($scope.project)
+        if (projectId) {
+            ProjectService.saveProject($scope.project).then(() => {
+                location.href = `#/project/${projectId}`;
+            });
+        } else {
+            ProjectService.createProject($scope.project).then(project => {
+                location.href = `#/project/${project._id}`;
+            });
+        }
     };
 
     $scope.reset = function() {
-        $scope.project = {}
-        $scope.project.members = [{users:[]}];
-        $scope.project.categories = [];
+        history.back();
     };
 
     $scope.addNewMember = function() {
