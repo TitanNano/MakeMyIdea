@@ -33,6 +33,7 @@ angular.module('app-mmi').config(function($routeProvider, $mdThemingProvider) {
                   {route: '/publish/:id?', path : '/publish', directive: 'app-page-publish', header: true, title: 'Publish Idea'},
                   {route: '/about-us', directive: 'app-page-about-us', header: true, title: 'About us'},
                   {route: '/user/edit', directive: 'app-page-user-edit'},
+                  {route: '/user/dashboard', directive: 'app-page-dashboard'},
                   {route: '/project/:id', directive: 'app-page-project-page'}]
                   , '/home');
 

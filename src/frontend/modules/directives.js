@@ -13,3 +13,4 @@ require('../directives/aboutUs/AboutUsDirective.js');
 require('../directives/userEditPage/userEditPageDirective.js');
 require('../directives/publishIdea/PublishIdeaDirective.js');
 require('../directives/projectPage/ProjectPageDirective.js');
+require('../directives/dashboard/DashboardDirective.js');
