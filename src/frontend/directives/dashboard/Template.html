@@ -1,20 +1,35 @@
 <div flex layout="row" layout-margin>
-    <md-list class="md-whiteframe-1dp" flex>
-        <md-subheader class="md-no-sticky">Own Projects</md-subheader>
-        <md-list-item class="secondary-button-padding" ng-click="testAction($event, own)" ng-repeat="own in ownProjects">
-            <p>{{own}}</p>
-        </md-list-item>
-    </md-list>
-    <md-list class="md-whiteframe-1dp" flex>
-        <md-subheader class="md-no-sticky">Helping on Projects</md-subheader>
-        <md-list-item class="secondary-button-padding" ng-click="testAction($event, working)" ng-repeat="helping in helpingProjects">
-            <p>{{helping}}</p>
-        </md-list-item>
-    </md-list>
-    <md-list class="md-whiteframe-1dp" flex>
-        <md-subheader class="md-no-sticky">Finished Projects</md-subheader>
-        <md-list-item class="secondary-button-padding" ng-click="testAction($event, finished)" ng-repeat="finished in finishedProjects">
-            <p>{{finished}}</p>
-        </md-list-item>
-    </md-list>
+    <md-card flex>
+        <md-list>
+            <md-subheader class="md-no-sticky">Own Projects</md-subheader>
+            <md-list-item class="md-2-line" ng-click="testAction($event, own)" ng-repeat="project in ownProjects">
+                <div class="md-list-item-text">
+                    <h3>{{project.title}}</h3>
+                    <p>{{project.currentMembers}} of {{project.neededMembers}} members in this project</p>
+                </div>
+            </md-list-item>
+        </md-list>
+    </md-card>
+    <md-card flex>
+        <md-list>
+            <md-subheader class="md-no-sticky">Helping on Projects</md-subheader>
+            <md-list-item class="md-2-line" ng-click="testAction($event, working)" ng-repeat="project in helpingProjects">
+                <div class="md-list-item-text">
+                    <h3>{{project.title}}</h3>
+                    <p>{{project.currentMembers}} of {{project.neededMembers}} members in this project</p>
+                </div>
+            </md-list-item>
+        </md-list>
+    </md-card>
+    <md-card flex>
+        <md-list>
+            <md-subheader class="md-no-sticky">Finished Projects</md-subheader>
+            <md-list-item class="md-2-line" ng-click="testAction($event, finished)" ng-repeat="project in finishedProjects">
+                <div class="md-list-item-text">
+                    <h3>{{project.title}}</h3>
+                    <p>{{project.currentMembers}} of {{project.neededMembers}} members in this project</p>
+                </div>
+            </md-list-item>
+        </md-list>
+    </md-card>
 </div>

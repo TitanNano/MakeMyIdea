@@ -5,11 +5,35 @@
 
 angular.module('app-mmi').controller("DashboardController", ['$scope', '$mdDialog', function($scope, $mdDialog) {
 
-    $scope.ownProjects = ['projectObjekt1', 'projectObjekt2'];
+    $scope.ownProjects = [{
+        title : 'projectObjekt1',
+        neededMembers : 12,
+        currentMembers : 7
+    }, {
+        title : 'projectObjekt2',
+        neededMembers : 4,
+        currentMembers : 0
+    }];
 
-    $scope.helpingProjects = ['projectObjekt3', 'projectObjekt4'];
+    $scope.helpingProjects = [{
+        title : 'projectObjekt3',
+        neededMembers : 9,
+        currentMembers : 6
+    }, {
+        title : 'projectObjekt4',
+        neededMembers : 13,
+        currentMembers : 2
+    }];
 
-    $scope.finishedProjects = ['projectObjekt5', 'projectObjekt6'];
+    $scope.finishedProjects = [{
+        title : 'projectObjekt5',
+        neededMembers : 4,
+        currentMembers : 1
+    }, {
+        title : 'projectObjekt6',
+        neededMembers : 3,
+        currentMembers : 3
+    }];
 
     $scope.testAction = function(event, cont) {
     $mdDialog.show(

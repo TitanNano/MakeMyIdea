@@ -1,2 +1,2 @@
 <md-button ng-if="!user" ng-click="loginDialog($event)" class="md-primary">Login / Register</md-button>
-<md-button ng-if="user" ng-click="" class="">{{user.firstName}}<img ng-src="{{user.avatar}}"></md-button>
+<md-button ng-if="user" ng-href="#/user/dashboard" class="">{{user.firstName}}<img ng-src="{{user.avatar}}"></md-button>

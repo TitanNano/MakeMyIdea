@@ -23,20 +23,29 @@ let ExploreProjectsController = Make({
             this.logger.log(request.query);
 
             let { sort } = request.query
-
             let sortQuery = { _id : -1 };
-            if (sort === 'hot'){
+            let { search } = request.query;
+            let { tags } = request.query;
+            let { userProjects } = request.query;
+
+            if (request.authenticated && userProjects) {
+                return Storage.findItems({
+                    collection : this.collection,
+                    find : {
+                        'memebers.users' : ''
+                    } 
+                })
+            }
+
+            if (sort && sort === 'hot'){
                 sortQuery = { views : -1 };
             }
 
-            let { search } = request.query;
-            let { tags } = request.query;
-
             let findQuery = {};
-            if (search != ''){
+            if (search && search != ''){
                 findQuery.title = new RegExp(search, "i");
             }
-            if (tags != ''){
+            if (tags && tags != ''){
                 findQuery.categories = { $all : tags.split(',') } ;
             }
 
