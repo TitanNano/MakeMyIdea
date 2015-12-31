@@ -16,7 +16,7 @@ let ProjectService = {
     createProject : function(idea){
         logger.log('Idea: ', idea);
         this._lastProject = null;
-        
+
         return NetworkService.resource({ resource : 'projects', method : 'POST', data : {
             title : idea.title,
             description : idea.description,
@@ -49,6 +49,12 @@ let ProjectService = {
         } else {
             return this.fetchProject(id);
         }
+    },
+
+    getUserProjects : function(type){
+        return NetworkService.resource({resource:'projects', data:{userProjects : type}}).then(projectList => {
+            return projectList.map(project => Make(project, Project).get());
+        });
     }
 };
 

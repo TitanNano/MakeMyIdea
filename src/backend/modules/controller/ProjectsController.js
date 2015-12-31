@@ -29,12 +29,30 @@ let ExploreProjectsController = Make({
             let { userProjects } = request.query;
 
             if (request.authenticated && userProjects) {
-                return Storage.findItems({
-                    collection : this.collection,
-                    find : {
-                        'memebers.users' : ''
-                    } 
-                })
+                let userID = request.session.id;
+                if (userProjects === 'own'){
+                    return Storage.findItems({
+                        collection : this.collection,
+                        find : {
+                            'owner' : userID
+                        } 
+                    })
+                } else if (userProjects === 'finished') {
+                    return Storage.findItems({
+                        collection : this.collection,
+                        find : {
+                            'memebers.users' : userID,
+                            'finished' : true
+                        } 
+                    })
+                } else if (userProjects === 'helping'){
+                    return Storage.findItems({
+                        collection : this.collection,
+                        find : {
+                            'memebers.users' : userID
+                        }
+                    })
+                }
             }
 
             if (sort && sort === 'hot'){

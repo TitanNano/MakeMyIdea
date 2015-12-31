@@ -1,11 +1,20 @@
+import ProjectService from 'services/ProjectService.js';
+
 //import { Make } from 'modules/make.js';
 //import Logger from 'prototypes/Logger.js';
 
-//let logger = Make(Logger)('PublishIdeaController');
+//let logger = Make(Logger)('DashboardController');
 
 angular.module('app-mmi').controller("DashboardController", ['$scope', '$mdDialog', function($scope, $mdDialog) {
 
-    $scope.ownProjects = [{
+    let getUserProjects = function (type) {
+        return ProjectService.getUserProjects(type).then(projectList => {
+            return projectList;
+        });
+    };
+
+    $scope.ownProjects = getUserProjects('own');
+    /*[{
         title : 'projectObjekt1',
         neededMembers : 12,
         currentMembers : 7
@@ -13,9 +22,10 @@ angular.module('app-mmi').controller("DashboardController", ['$scope', '$mdDialo
         title : 'projectObjekt2',
         neededMembers : 4,
         currentMembers : 0
-    }];
+    }];*/
 
-    $scope.helpingProjects = [{
+    $scope.helpingProjects = getUserProjects('helping');
+    /*[{
         title : 'projectObjekt3',
         neededMembers : 9,
         currentMembers : 6
@@ -23,9 +33,10 @@ angular.module('app-mmi').controller("DashboardController", ['$scope', '$mdDialo
         title : 'projectObjekt4',
         neededMembers : 13,
         currentMembers : 2
-    }];
+    }];*/
 
-    $scope.finishedProjects = [{
+    $scope.finishedProjects = getUserProjects('finished');
+    /*[{
         title : 'projectObjekt5',
         neededMembers : 4,
         currentMembers : 1
@@ -33,7 +44,7 @@ angular.module('app-mmi').controller("DashboardController", ['$scope', '$mdDialo
         title : 'projectObjekt6',
         neededMembers : 3,
         currentMembers : 3
-    }];
+    }];*/
 
     $scope.testAction = function(event, cont) {
     $mdDialog.show(
@@ -43,6 +54,7 @@ angular.module('app-mmi').controller("DashboardController", ['$scope', '$mdDialo
         .ok('Close')
         .targetEvent(event)
     );
+
   };
 
 }])
